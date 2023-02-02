@@ -1,0 +1,14 @@
+{
+  "targets": {
+    "assistente-medico-6d342": {
+      "hosting": {
+        "assistente": [
+          "assistente-medico-6d342"
+        ]
+      }
+    }
+  },
+  "projects": {
+    "default": "assistente-medico-6d342"
+  }
+}

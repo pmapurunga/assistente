@@ -1,0 +1,20 @@
+
+.example-container {
+  display: flex;
+  flex-direction: column;
+  z-index: 0;
+  height: 100%; /* 64px é a altura da Toolbar */
+  width: 100%;
+  padding-top: 54px;
+}
+
+.example-container mat-sidenav-content {
+  overflow: auto;
+  flex: 1;
+}
+  
+  mat-chip-listbox {
+    display: inline-block;
+    margin-right: 10px;
+  }
+

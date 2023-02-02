@@ -1,0 +1,94 @@
+.example-container {
+  display: flex;
+  flex-direction: column;
+  z-index: 0;
+  height: 100%; /* 64px é a altura da Toolbar */
+  width: 100%;
+  overflow: auto
+}
+
+.example-container mat-sidenav-content {
+  overflow: auto;
+  flex: 1;
+}
+
+.king_bed{
+  align-items:center;
+}
+
+.leito {
+    background-color:cadetblue;
+    cursor: pointer;
+    box-shadow: 0px 8px 10px rgba(0, 0, 0, 0.5);
+  }
+  
+  .card-paciente {
+    width: 400px;
+    height: 350px;
+    margin-left: 10px;
+    margin-right: 10px;
+    margin-bottom: 10px;
+    margin-top: 10px;
+    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.5);
+    cursor: pointer;
+  }
+  
+  .card-destino {
+    width: 400px;
+    height: 350px;
+    margin-left: 10px;
+    margin-right: 10px;
+    margin-bottom: 10px;
+    margin-top: 10px;
+    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.5);
+    cursor: pointer;
+  }
+  
+  .card-problemas {
+    width: 400px;
+    height: 730px;
+    margin-left: 10px;
+    margin-right: 10px;
+    margin-bottom: 10px;
+    margin-top: 10px;
+    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.5);
+    cursor: pointer;
+  }
+  
+  .card-condutas {
+    width: 400px;
+    height: 350px;
+    margin-left: 10px;
+    margin-right: 10px;
+    margin-bottom: 10px;
+    margin-top: 10px;
+    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.5);
+    cursor: pointer;
+  }
+  
+  .card-pendencias {
+    width: 400px;
+    height: 350px;
+    margin-left: 10px;
+    margin-right: 10px;
+    margin-bottom: 10px;
+    margin-top: 10px;
+    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.5);
+    cursor: pointer;
+  }
+  
+  .justify{
+    text-align: justify;
+  }
+  
+  .example-full-width {
+    width: 100%;
+  }
+  
+  td {
+    padding-right: 3px;
+  }
+  
+  .example-list-wrapping {
+    max-width: 500px
+  }

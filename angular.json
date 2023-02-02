@@ -30,6 +30,7 @@
               "src/assets"
             ],
             "styles": [
+              "@angular/material/prebuilt-themes/indigo-pink.css",
               "src/styles.scss"
             ],
             "scripts": []
@@ -93,12 +94,26 @@
               "src/assets"
             ],
             "styles": [
+              "@angular/material/prebuilt-themes/indigo-pink.css",
               "src/styles.scss"
             ],
             "scripts": []
           }
+        },
+        "deploy": {
+          "builder": "@angular/fire:deploy",
+          "options": {
+            "prerender": false,
+            "ssr": false,
+            "browserTarget": "assistente:build:production",
+            "firebaseProject": "assistente-medico-6d342",
+            "firebaseHostingSite": "assistente-medico-6d342"
+          }
         }
       }
     }
+  },
+  "cli": {
+    "analytics": "8a6a3f26-19dd-4dd6-b06f-128a74c574b5"
   }
 }
