@@ -1,0 +1,21 @@
+
+<mat-toolbar color="primary">
+    <button mat-icon-button class="example-icon" (click)="drawer.toggle()">
+        <mat-icon>menu</mat-icon>
+    </button>
+</mat-toolbar>
+
+<mat-drawer-container class="example-container" autosize>
+	<mat-drawer #drawer class="example-sidenav" mode="side">
+		<mat-nav-list>
+			<button color="primary" mat-raised-button routerLink="/home" routerLinkActive="active" ariaCurrentWhenActive="page">Home</button>
+			<button color="primary" mat-raised-button routerLink="/leitos-center" routerLinkActive="active" ariaCurrentWhenActive="page">Leitos</button>
+		</mat-nav-list>
+	</mat-drawer>
+  
+	<div class="example-sidenav-content">
+		<router-outlet></router-outlet>
+	</div>
+  
+</mat-drawer-container>
+  

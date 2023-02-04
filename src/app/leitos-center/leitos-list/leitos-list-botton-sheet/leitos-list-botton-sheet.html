@@ -1,0 +1,17 @@
+<mat-nav-list *ngIf="this.data.source === 'bed'">
+    <a mat-list-item (click)="openLink($event)">
+      <span matListItemTitle>Transferir Paciente</span>
+      <span matLine>Mandar para outra área do Hospital</span>
+    </a>
+  
+    <a mat-list-item (click)="openLink($event)">
+      <span matListItemTitle>Mudar de Médico(a)</span>
+      <span matLine>Mudar Médico(a) responsável pelo Paciente</span>
+    </a>
+  
+    <a mat-list-item (click)="openLink($event)">
+      <span matListItemTitle>Mudar de Enfermeiro(a)</span>
+      <span matLine>Mudar Enfermeiro(a) responsável pelo paciente</span>
+    </a>
+</mat-nav-list>
+  

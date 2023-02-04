@@ -1,0 +1,9 @@
+mat-nav-list {
+    display: flex;
+    flex-direction: row;
+  }
+  
+mat-nav-list a {
+    flex-grow: 1;
+    text-align: center;
+  }

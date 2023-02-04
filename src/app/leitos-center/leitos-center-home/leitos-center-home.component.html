@@ -1,7 +1,13 @@
-<h3>Escolha o Leito Acima</h3>
-
-<!-- 
-Copyright Google LLC. All Rights Reserved.
-Use of this source code is governed by an MIT-style license that
-can be found in the LICENSE file at https://angular.io/license
--->
+<div fxLayout="column" fxLayoutAlign="center center" fxFill>
+    <mat-card>
+        <mat-card-header>
+            <mat-card-title>Áreas do Hospital</mat-card-title>
+            <mat-card-subtitle>Escolha uma:</mat-card-subtitle>
+          </mat-card-header>
+        <mat-card-content>
+            <mat-nav-list *ngFor="let zone of zones | async">
+                <a mat-list-item (click)="selectZone(zone.name)"> {{ zone.name }} </a>
+            </mat-nav-list>
+        </mat-card-content>
+    </mat-card>
+</div>

@@ -1,4 +1,11 @@
+mat-card{
+    width: 400px;
+    min-height: 300px;
+}
 
+.num_leitos{
+    text-align: center;
+}
 
 /*
 Copyright Google LLC. All Rights Reserved.

@@ -92,3 +92,9 @@
   .example-list-wrapping {
     max-width: 500px
   }
+
+  .scrollable-element {
+    height: 400px;
+    overflow-y: scroll;
+    overflow-x: scroll;
+  }

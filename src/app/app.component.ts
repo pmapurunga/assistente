@@ -1,4 +1,6 @@
-import { Component } from "@angular/core";
+import { Component, EventEmitter, ViewChild, Output } from '@angular/core';
+import { MatSidenav } from '@angular/material/sidenav';
+import { Router } from '@angular/router';
 
 @Component({
   selector: "app-root",
@@ -6,5 +8,33 @@ import { Component } from "@angular/core";
   styleUrls: ["./app.component.scss"]
 })
 export class AppComponent {
-  title = "CodeSandbox";
+  @ViewChild('sidenav', { static: false }) sidenav!: MatSidenav;
+  title: string  | undefined
+
+  constructor(
+    private router: Router,
+  ) {}
+
+  ngOnInit() {
+    setTimeout(() => {
+      this.title = 'Assistente Médico'
+    }, 100);
+  }
+
+
+  link_home(){
+    this.router.navigate(['/home'])
+    this.sidenav.toggle()
+  }
+
+  link_leitos(){
+    this.router.navigate(['/leitos-center'])
+    this.sidenav.toggle()
+  }
+
+  link_adm(){
+    this.router.navigate(['/adm-center'])
+    this.sidenav.toggle()
+  }
+
 }

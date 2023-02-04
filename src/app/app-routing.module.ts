@@ -7,9 +7,14 @@ const routes: Routes = [
   {
     path: 'leitos-center',
     loadChildren: () => import('./leitos-center/leitos-center.module').then(m => m.LeitosCenterModule),
-    data: { preload: true}
+    data: { title: 'Áreas', preload: true}
   },
-  { path: "", redirectTo: "/home", pathMatch: "full" }
+  {
+    path: 'adm-center',
+    loadChildren: () => import('./adm-center/adm-center.module').then(m => m.AdmCenterModule),
+    data: { title: 'Administração', preload: true}
+  },
+  { path: "", redirectTo: "", pathMatch: "full" }
 ];
 
 @NgModule({

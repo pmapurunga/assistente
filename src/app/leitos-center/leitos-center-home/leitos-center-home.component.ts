@@ -1,6 +1,8 @@
-import { Component, OnInit } from '@angular/core';
-
-export interface Item { name: string; }
+import { Component,  EventEmitter, Output } from '@angular/core';
+import { Observable } from 'rxjs';
+import { AngularFirestore } from '@angular/fire/compat/firestore';
+import { Router } from '@angular/router';
+import { AppComponent } from '../../app.component';
 
 @Component({
   selector: 'app-leitos-center-home',
@@ -8,13 +10,27 @@ export interface Item { name: string; }
   styleUrls: ['./leitos-center-home.component.css']
 })
 export class LeitosCenterHomeComponent {
+  zones: Observable<any[]>;
 
+  constructor(
+    private afs: AngularFirestore, 
+    private router: Router,
+    private appComponent: AppComponent
+    ) {
+    this.zones = this.afs.collection('/HTL/').valueChanges(); 
+  }
+  
+  ngOnInit() {
+    setTimeout(() => {
+      this.appComponent.title = 'Escolha a Área do Hospital';
+    }, 100);
+  }
+
+  selectZone(zone: string) {
+    this.router.navigate(['/leitos-list'], { queryParams: { selectedZone: zone } });
+    setTimeout(() => {
+      this.appComponent.title = zone;
+    }, 100);
+  }
 
  }
-
-
-/*
-Copyright Google LLC. All Rights Reserved.
-Use of this source code is governed by an MIT-style license that
-can be found in the LICENSE file at https://angular.io/license
-*/
