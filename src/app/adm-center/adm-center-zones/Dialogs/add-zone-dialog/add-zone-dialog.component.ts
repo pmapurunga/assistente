@@ -38,7 +38,7 @@ import { Zone, Bed } from '../../../../interfaces'
           var bed: Bed = {
             id: i.toString(), bed_name: `Leito ${i}`,
             client_name: '',
-            birthdate_client: '',
+            birthday: '',
             start_emergency: '',
             start_internment: '',
             service_number: '',

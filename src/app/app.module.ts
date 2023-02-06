@@ -12,7 +12,8 @@ import { AngularFireModule } from '@angular/fire/compat';
 import { AngularFireAnalyticsModule } from '@angular/fire/compat/analytics';
 import { AngularFirestoreModule } from '@angular/fire/compat/firestore';
 import { NgScrollbarModule } from 'ngx-scrollbar';
-
+import { FormsModule } from '@angular/forms';
+import { ReactiveFormsModule } from '@angular/forms';
 import { LeitosCenterModule } from './leitos-center/leitos-center.module'
 import { AdmCenterModule } from './adm-center/adm-center.module'
 import { environment } from '../environments/environment';
@@ -53,6 +54,8 @@ import { provideStorage,getStorage } from '@angular/fire/storage';*/
         AdmCenterModule,
         FlexLayoutModule,
         NgScrollbarModule,
+        FormsModule, 
+        ReactiveFormsModule,
     ]
 })
 export class AppModule {}

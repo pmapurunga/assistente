@@ -3,7 +3,7 @@ import { AngularFirestore, AngularFirestoreDocument } from '@angular/fire/compat
 import { ActivatedRoute } from '@angular/router';
 import { NgScrollbar } from 'ngx-scrollbar';
 import { Observable } from 'rxjs';
-import { Leito } from '../leito';
+import { Bed } from '../../interfaces'
 import { AnimationsService } from '../../Services/animations.service'
 import { zoomIn } from 'ng-animate';
 import { AppComponent } from '../../app.component';
@@ -17,11 +17,11 @@ import { BottomSheetLeitosList } from './leitos-list-botton-sheet/leitos-list-bo
 })
 export class LeitosListComponent implements OnInit {
   
-  leito!: Leito;
+  bed!: Bed;
   items: Observable<any[]>;
   private _selectedBed: string | undefined;
 
-  private itemDoc!: AngularFirestoreDocument<Leito>;
+  private itemDoc!: AngularFirestoreDocument<Bed>;
   item!: Observable<any>;
   
   @ViewChild(NgScrollbar)
@@ -44,7 +44,7 @@ export class LeitosListComponent implements OnInit {
 
   selectBed(id: string, box: HTMLElement) {
     this.selectedBed = id;
-    this.itemDoc = this.afs.doc<Leito>('/HTL/'+this.selectedZone+'/beds/' + id);
+    this.itemDoc = this.afs.doc<Bed>('/HTL/'+this.selectedZone+'/beds/' + id);
     this.item = this.itemDoc.valueChanges();
     this.animationsService.playAnim(box, zoomIn)
   } 
@@ -55,7 +55,7 @@ export class LeitosListComponent implements OnInit {
   
   set selectedBed(value: string | undefined) {
     this._selectedBed = value;
-    this.itemDoc = this.afs.doc<Leito>('/HTL/Posto 2/beds/'+value);
+    this.itemDoc = this.afs.doc<Bed>('/HTL/'+this.selectedZone+'/beds/'+value);
     this.item = this.itemDoc.valueChanges();
   }
 
@@ -68,7 +68,7 @@ export class LeitosListComponent implements OnInit {
   } 
 
   openBottomSheet(source: string): void {
-    this._bottomSheet.open(BottomSheetLeitosList, {data: {source: source}});
+    this._bottomSheet.open(BottomSheetLeitosList, {data: {source: source, zone: this.selectedZone}});
   }
 
 }

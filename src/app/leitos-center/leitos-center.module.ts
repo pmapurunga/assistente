@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
+import { ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 
 import { LeitosCenterRoutingModule } from './leitos-center-routing.module';
@@ -28,6 +29,7 @@ import { OrderByPipe } from '../Pipes/orde-by.pipe'
     FlexLayoutModule,
     NgScrollbarModule,
     ScrollingModule,
+    ReactiveFormsModule,
   ],
   exports:[
     LeitosCenterHomeComponent,
