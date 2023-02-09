@@ -36,7 +36,8 @@ import { Zone, Bed } from '../../../../interfaces'
 
         for (let i = 1; i <= n_beds; i++) {
           var bed: Bed = {
-            id: i.toString(), bed_name: `Leito ${i}`,
+            id: i.toString(), 
+            bed_name: `Leito ${i}`,
             client_name: '',
             birthday: '',
             start_emergency: '',
@@ -47,7 +48,8 @@ import { Zone, Bed } from '../../../../interfaces'
             conduct: '',
             check_list: [],
             doctor: '',
-            nurse: ''
+            nurse: '',
+            state: ''
           }
           this.itemsCollection.doc(z_name).collection('beds').doc(i.toString()).set(bed);
         }

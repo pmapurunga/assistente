@@ -1,21 +1,34 @@
-
-<mat-toolbar color="primary">
-    <button mat-icon-button class="example-icon" (click)="drawer.toggle()">
-        <mat-icon>menu</mat-icon>
-    </button>
-</mat-toolbar>
-
-<mat-drawer-container class="example-container" autosize>
-	<mat-drawer #drawer class="example-sidenav" mode="side">
-		<mat-nav-list>
-			<button color="primary" mat-raised-button routerLink="/home" routerLinkActive="active" ariaCurrentWhenActive="page">Home</button>
-			<button color="primary" mat-raised-button routerLink="/leitos-center" routerLinkActive="active" ariaCurrentWhenActive="page">Leitos</button>
-		</mat-nav-list>
-	</mat-drawer>
-  
-	<div class="example-sidenav-content">
-		<router-outlet></router-outlet>
-	</div>
-  
-</mat-drawer-container>
-  
+<mat-list class="example-list-wrapping">
+	<mat-list-item>
+	  <span matListItemTitle>Nome</span>
+	  <span matListItemLine>{{ (item | async)?.client_name }}</span>
+	</mat-list-item>
+	<button mat-icon-button color="primary">
+	  <mat-icon>more_vert</mat-icon>
+	</button>
+	<mat-divider></mat-divider>
+	<mat-list-item>
+	  <span matListItemTitle>Data de Nascimento</span>
+	  <span matListItemLine>{{ (item | async)?.birthday | date: 'DD/MM/YYYY' }}</span>
+	</mat-list-item>
+	<mat-divider></mat-divider>
+	<mat-list-item>
+	  <span matListItemTitle>Idade</span>
+	  <span matListItemLine>{{ (item | async)?.birthday | age }}</span>
+	</mat-list-item>
+	<mat-divider></mat-divider>
+	<mat-list-item>
+	  <span matListItemTitle>Entrada</span>
+	  <span matListItemLine>33/21/3213</span>
+	</mat-list-item>
+	<mat-divider></mat-divider>
+	<mat-list-item>
+	  <span matListItemTitle>Tempo</span>
+	  <span matListItemLine>30 horas</span>
+	</mat-list-item>    
+	<mat-divider></mat-divider>    
+	<mat-list-item>
+	  <span matListItemTitle>No de Atendimento</span>
+	  <span matListItemLine>3321321321</span>
+	</mat-list-item>       
+  </mat-list>   

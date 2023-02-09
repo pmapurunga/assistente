@@ -1,6 +1,8 @@
-import { Component, EventEmitter, ViewChild, Output } from '@angular/core';
+import { Component, ViewChild, } from '@angular/core';
+import { AngularFirestore } from '@angular/fire/compat/firestore';
 import { MatSidenav } from '@angular/material/sidenav';
 import { Router } from '@angular/router';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: "app-root",
@@ -8,12 +10,19 @@ import { Router } from '@angular/router';
   styleUrls: ["./app.component.scss"]
 })
 export class AppComponent {
+  
   @ViewChild('sidenav', { static: false }) sidenav!: MatSidenav;
+ 
   title: string  | undefined
-
+  panelOpenState = true;
+  zones: Observable<any[]>;
+  
   constructor(
+    private afs: AngularFirestore, 
     private router: Router,
-  ) {}
+  ) {
+    this.zones = this.afs.collection('/HTL/').valueChanges(); 
+  }
 
   ngOnInit() {
     setTimeout(() => {
@@ -27,13 +36,18 @@ export class AppComponent {
     this.sidenav.toggle()
   }
 
-  link_leitos(){
-    this.router.navigate(['/leitos-center'])
+  link_adm(){
+    this.router.navigate(['/adm-center'])
     this.sidenav.toggle()
   }
 
-  link_adm(){
-    this.router.navigate(['/adm-center'])
+  selectZone(zone: string) {
+    this.router.navigate(['/leitos-list/'], { queryParams: { selectedZone: zone } });
+      
+    setTimeout(() => {
+      this.title = zone;
+    }, 100);
+      
     this.sidenav.toggle()
   }
 

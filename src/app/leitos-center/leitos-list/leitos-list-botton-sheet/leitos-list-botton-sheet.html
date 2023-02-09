@@ -1,48 +1,76 @@
 <mat-nav-list *ngIf="this.data.source === 'bed'">
-    <a mat-list-item (click)="openLink($event)">
+    <a mat-list-item>
       <span matListItemTitle>Transferir Paciente</span>
       <span matLine>Mandar para outra área do Hospital</span>
     </a>
-  
-    <a mat-list-item (click)="openLink($event)">
+    <a mat-list-item>
       <span matListItemTitle>Mudar de Médico(a)</span>
       <span matLine>Mudar Médico(a) responsável pelo Paciente</span>
     </a>
-  
-    <a mat-list-item (click)="openLink($event)">
+    <a mat-list-item>
       <span matListItemTitle>Mudar de Enfermeiro(a)</span>
       <span matLine>Mudar Enfermeiro(a) responsável pelo paciente</span>
     </a>
+    <a mat-list-item (click)="alta()">
+      <span matListItemTitle>Alta do Paciente</span>
+      <span matLine>Liberar este leito</span>
+    </a>
 </mat-nav-list>
-<div *ngIf="this.data.source === 'client'">
+
+<div *ngIf="sourceList.includes(this.data.source)">
   <form [formGroup]="form">
-    <mat-form-field appearance="outline">
+    <div *ngIf="this.data.source === 'client_name'">
+      <h2>Atualizar o Nome do Paciente</h2>
+      <mat-form-field appearance="outline" >
+        <mat-label>Nome</mat-label>
+        <input matInput formControlName="client_name">
+      </mat-form-field><br>
+      <button mat-button [disabled]="!this.form.value.client_name" (click)="submitName()">Salvar</button>  
+    </div>
+    <div *ngIf="this.data.source === 'birthday'">
+      <h2>Atualizar Data de Nascimento do Paciente</h2>
+      <mat-form-field appearance="outline" >
+        <mat-label>Data de Nascimento</mat-label>
+        <input matInput [matDatepicker]="birthdayPicker" formControlName="birthday">
+        <mat-datepicker-toggle matSuffix [for]="birthdayPicker"></mat-datepicker-toggle>
+        <mat-datepicker #birthdayPicker></mat-datepicker>
+      </mat-form-field>
+      <button mat-button (click)="submitBirthdate()">Salvar</button>  
+    </div>
+    <div *ngIf="this.data.source === 'problems_list'">
+      <h2>Lista de Problemas</h2>
+      <mat-form-field style="height: 400px; width: 400px;">
+        <mat-label>Lista de Problemas</mat-label>
+        <textarea matInput style="height: 400px; width: 400px;" formControlName="problems_list"></textarea>
+      </mat-form-field>
+      <button mat-button (click)="submitProblems()">Salvar</button>  
+    </div>
+  </form>
+</div>
+
+<div *ngIf="this.data.source == 'add_client'">
+  <h2>Adicionar um Paciente ao Leito {{ data.bed }}</h2>
+  <form [formGroup]="form">
+    <div fxLayout="column" fxLayoutAlign="space-around center" >
+    <mat-form-field appearance="outline" >
       <mat-label>Nome</mat-label>
       <input matInput formControlName="client_name">
-      <mat-error *ngIf="form?.get('client_name')?.hasError('required')">Nome é obrigatório</mat-error>
-    </mat-form-field><br>
-    <mat-form-field appearance="outline">
+    </mat-form-field>
+    <mat-form-field appearance="outline" >
       <mat-label>Data de Nascimento</mat-label>
-      <input matInput formControlName="birthday">
-      <mat-error *ngIf="form?.get('birthday')?.hasError('required')">Data de Nascimento é obrigatória</mat-error>
-    </mat-form-field>
-    <mat-form-field appearance="outline">
-      <mat-label>Entrada na Emergência</mat-label>
-      <input matInput formControlName="start_emergency">
-    </mat-form-field>
-    <mat-form-field appearance="outline">
-      <mat-label>Entrada na Internamento</mat-label>
-      <input matInput formControlName="start_internment">
-    </mat-form-field>
-    <mat-form-field appearance="outline">
-      <mat-label>No de Internamento</mat-label>
-      <input matInput formControlName="service_number">
-      <mat-error *ngIf="form?.get('service_number')?.hasError('required')">No de Internamento é obrigatório</mat-error>
+      <input matInput [matDatepicker]="birthdayPicker" formControlName="birthday">
+      <mat-datepicker-toggle matSuffix [for]="birthdayPicker"></mat-datepicker-toggle>
+      <mat-datepicker #birthdayPicker></mat-datepicker>
     </mat-form-field>
     <mat-form-field appearance="outline">
       <mat-label>No de Plano</mat-label>
       <input matInput formControlName="plan_number">
-      <mat-error *ngIf="form?.get('plan_number')?.hasError('required')">No de Plano é obrigatório</mat-error>
     </mat-form-field>
-  </form>  
+    <mat-radio-group formControlName="state">
+      <mat-radio-button value="na Emergência">na Emergência</mat-radio-button>
+      <mat-radio-button value="Internado">Internado</mat-radio-button>
+    </mat-radio-group>
+    </div>
+  </form>
+  <button mat-button (click)="submitAdd()">Salvar</button>  
 </div>

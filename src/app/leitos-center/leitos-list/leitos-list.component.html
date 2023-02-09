@@ -32,51 +32,62 @@
   <div class="colorNested" style="height: auto; width: 100%;" *ngIf="(item | async)?.client_name">
     <div gdGap="10px" gdColumns="repeat(10, [col] auto)" gdRows="repeat(2, [row] auto)">
       <div class="boxA" gdColumn="col 1/ span 1" gdRow="row / span 40" matRipple (click)="openBottomSheet('bed')">
-          <div>
-            <mat-icon aria-hidden="false">king_bed</mat-icon><br>
+          <div fxLayout="column" fxLayoutAlign="center center">
+            <mat-icon aria-hidden="false">king_bed</mat-icon>
             <h2>{{ (item | async)?.bed_name }}</h2>
           </div>
+          <mat-divider></mat-divider>
+          <div fxLayout="column" fxLayoutAlign="center center">
+            <h2>Estado:</h2>
+            <h3>{{ (item | async)?.state }}</h3>
+          </div>
+          <mat-divider></mat-divider>
+          <div fxLayout="column" fxLayoutAlign="center center">
+            <h2>Médico:</h2>
+            <h3>{{ (item | async)?.doctor }}</h3>
+          </div>
+          <mat-divider></mat-divider>
+          <div fxLayout="column" fxLayoutAlign="center center">
+            <h2>Enfermeiro:</h2>
+            <h3>{{ (item | async)?.nurse }}</h3>
+          </div>
       </div>
-      <div class="boxB" gdColumn="col 2 / span 3" gdRow="row / span 20" (click)="openBottomSheet('client')">
-        <mat-card class="card-paciente" matRipple fxFill>
+      <div class="boxB" gdColumn="col 2 / span 3" gdRow="row / span 20">
+        <mat-card class="card-paciente" fxFill>
           <mat-card-content>
-            <mat-list class="example-list-wrapping">
-              <mat-list-item lines="4">
-                <span matListItemTitle>Nome</span>
-                <span matListItemLine>{{ (item | async)?.client_name }}</span>
-              </mat-list-item>
-              <mat-list-item>
-                <span matListItemTitle>Data de Nascimento</span>
-                <span matListItemLine>31/12/1904</span>
-              </mat-list-item>
-              <mat-list-item>
-                <span matListItemTitle>Idade</span>
-                <span matListItemLine>200 anos</span>
-              </mat-list-item>
-              <mat-list-item>
-                <span matListItemTitle>Entrada</span>
-                <span matListItemLine>33/21/3213</span>
-              </mat-list-item>
-              <mat-list-item>
-                <span matListItemTitle>Tempo</span>
-                <span matListItemLine>30 horas</span>
-              </mat-list-item>        
-              <mat-list-item>
-                <span matListItemTitle>No de Atendimento</span>
-                <span matListItemLine>3321321321</span>
-              </mat-list-item>       
-            </mat-list>   
+            <div gdColumn="col 2 / span 2" gdRow="row 6" gdGap="5px" gdColumns="1fr 1fr">
+              <div gdColumn="1 / span 2" gdRow="1">
+                <button mat-button (click)="openBottomSheet('client_name')">Nome:</button>
+	              <span matListItemTitle>{{ (item | async)?.client_name }}</span>
+                <mat-divider></mat-divider>
+              </div>
+              <div gdColumn="1" gdRow="3">
+                <button mat-button (click)="openBottomSheet('birthday')">Data de Nascimento:</button>
+	              <span matListItemLine>{{ (item | async)?.birthday.toDate().getTime() | date: 'dd/MM/yyyy' }}</span>
+                <mat-divider></mat-divider>
+              </div>
+              <div gdColumn="2" gdRow="3">
+                <button mat-button (click)="openBottomSheet('birthday')">Idade:</button>
+	              <span matListItemLine>{{ (item | async)?.birthday.toDate().getTime() | age: 'years' }}</span>
+                <mat-divider></mat-divider>
+              </div>
+              <div gdColumn="1" gdRow="4">
+                <button mat-button>No do Plano:</button>
+	              <span matListItemLine>{{ (item | async)?.plan_number }}</span>
+                <mat-divider></mat-divider>
+              </div>
+            </div>
           </mat-card-content>
         </mat-card>
       </div>
       <div class="boxC" gdColumn="col 5/ span 3" gdRow="row / span 40">
-        <mat-card class="card-problemas" matRipple fxFill>
+        <mat-card class="card-problemas" matRipple fxFill (click)="openBottomSheet('problems_list')">
           <mat-card-header>
             <mat-card-title>Lista de Problemas</mat-card-title>
           </mat-card-header>
           <mat-card-content>
-              
-          </mat-card-content>
+            {{ formatProblemsList((item | async)?.problems_list) }}
+          </mat-card-content>          
         </mat-card>
       </div>
       <div class="boxD" gdColumn="col 8/ span 3" gdRow="row / span 20">
@@ -122,117 +133,8 @@
             <mat-card-title>O {{ (item | async)?.bed_name }} está vazio</mat-card-title>
         </mat-card-header>
         <mat-card-actions>
-          <button mat-button>Adicionar Paciente</button>
+          <button mat-button (click)="openBottomSheet('add_client')">Adicionar Paciente</button>
         </mat-card-actions>
     </mat-card>
   </div>
 </div>
-<!--  
-<mat-sidenav-container>
-    <mat-sidenav-content>
-      
-      <mat-grid-list cols="10" *ngIf="selectedBed !== undefined">
-        <mat-grid-tile colspan="1" rowspan="6" class="leito" matRipple>
-          <div class="king_bed">
-            <mat-icon aria-hidden="false">king_bed</mat-icon><br>
-            <h1>{{ (item | async)?.bed_name }}</h1>
-          </div>  
-        </mat-grid-tile>
-        <mat-grid-tile colspan="3" rowspan="3">
-          <mat-card class="card-paciente" matRipple>
-            <mat-card-content>
-              <mat-list class="example-list-wrapping">
-                <mat-list-item lines="4">
-                  <span matListItemTitle>Nome</span>
-                  <span matListItemLine>{{ (item | async)?.client_name }}</span>
-                </mat-list-item>
-                <table class="example-full-width" cellspacing="0">
-                  <tr>
-                    <td>
-                      <mat-list-item>
-                        <span matListItemTitle>Data de Nascimento</span>
-                        <span matListItemLine>31/12/1904</span>
-                      </mat-list-item>
-                    </td>
-                    <td>
-                      <mat-list-item>
-                        <span matListItemTitle>Idade</span>
-                        <span matListItemLine>200 anos</span>
-                      </mat-list-item>
-                    </td>
-                  </tr>
-                </table><br>
-                <table class="example-full-width" cellspacing="0">
-                  <tr>
-                    <td >
-                      <mat-list-item>
-                        <span matListItemTitle>Entrada</span>
-                        <span matListItemLine>33/21/3213</span>
-                      </mat-list-item>
-                    </td>
-                    <td >
-                      <mat-list-item>
-                        <span matListItemTitle>Tempo</span>
-                        <span matListItemLine>30 horas</span>
-                      </mat-list-item>        
-                    </td>
-                  </tr>
-                </table>
-                <mat-list-item>
-                  <span matListItemTitle>No de Atendimento</span>
-                  <span matListItemLine>3321321321</span>
-                </mat-list-item>       
-              </mat-list>   
-            </mat-card-content>
-          </mat-card>
-        </mat-grid-tile>
-        <mat-grid-tile colspan="3" rowspan="6">
-          <mat-card class="card-problemas" matRipple>
-            <mat-card-header>
-              <mat-card-title>Lista de Problemas</mat-card-title>
-            </mat-card-header>
-            <mat-card-content>
-                
-            </mat-card-content>
-          </mat-card>
-        </mat-grid-tile>
-        <mat-grid-tile colspan="3" rowspan="3">
-          <mat-card class="card-condutas" matRipple>
-            <mat-card-header>
-              <mat-card-title>Condutas</mat-card-title>
-            </mat-card-header>
-            <mat-card-content>
-              
-            </mat-card-content>
-          </mat-card>
-        </mat-grid-tile>
-        <mat-grid-tile colspan="3" rowspan="3">
-          <mat-card class="card-destino" matRipple>
-            <mat-card-header>
-              <mat-card-title>Destino</mat-card-title>
-            </mat-card-header>
-            <mat-card-content>
-              
-            </mat-card-content>
-          </mat-card>
-        </mat-grid-tile>
-        
-        <mat-grid-tile colspan="3" rowspan="3">
-          <mat-card class="card-pendencias" matRipple>
-            <mat-card-header>
-              <mat-card-title>Pendências</mat-card-title>
-            </mat-card-header>
-            <mat-card-content>
-              <mat-selection-list #shoes>
-                <mat-list-option >
-                  
-                </mat-list-option>
-              </mat-selection-list>
-            </mat-card-content>
-          </mat-card>
-        </mat-grid-tile>
-      </mat-grid-list>
-  
-    </mat-sidenav-content>
-</mat-sidenav-container>
-</div> -->

@@ -19,7 +19,7 @@ const leitosCenterRoutes: Routes = [
         children: [
           {
             path: ':id',
-            component: LeitosDetailComponent,
+            component: LeitosListComponent,
             data: { preload: true },
           },
         ]

@@ -6,7 +6,6 @@ import { Observable } from 'rxjs';
 import { Bed } from '../../interfaces'
 import { AnimationsService } from '../../Services/animations.service'
 import { zoomIn } from 'ng-animate';
-import { AppComponent } from '../../app.component';
 import {MatBottomSheet, MatBottomSheetRef} from '@angular/material/bottom-sheet'
 import { BottomSheetLeitosList } from './leitos-list-botton-sheet/leitos-list-botton-sheet'
 
@@ -18,7 +17,7 @@ import { BottomSheetLeitosList } from './leitos-list-botton-sheet/leitos-list-bo
 export class LeitosListComponent implements OnInit {
   
   bed!: Bed;
-  items: Observable<any[]>;
+  items: Observable<any[]> | undefined;
   private _selectedBed: string | undefined;
 
   private itemDoc!: AngularFirestoreDocument<Bed>;
@@ -26,7 +25,7 @@ export class LeitosListComponent implements OnInit {
   
   @ViewChild(NgScrollbar)
   scrollable!: NgScrollbar;
-  selectedZone: string | null;
+  selectedZone: string  | undefined;
 
   constructor(
     private afs: AngularFirestore,
@@ -34,17 +33,19 @@ export class LeitosListComponent implements OnInit {
     private route: ActivatedRoute,
     private _bottomSheet: MatBottomSheet,
   ) {
-    this.selectedZone = this.route.snapshot.queryParamMap.get('selectedZone');
-    this.items = afs.collection('/HTL/'+this.selectedZone+'/beds').valueChanges(); 
+    this.route.queryParams.subscribe(params => {
+      this.selectedZone = params['selectedZone'];
+      this.items = afs.collection('/HTL/'+this.selectedZone+'/beds').valueChanges();
+    });
+    
   }
 
   ngOnInit() {
-    
   }
 
   selectBed(id: string, box: HTMLElement) {
     this.selectedBed = id;
-    this.itemDoc = this.afs.doc<Bed>('/HTL/'+this.selectedZone+'/beds/' + id);
+    this.itemDoc = this.afs.doc<Bed>('/HTL/'+this.selectedZone+'/beds/'+id);
     this.item = this.itemDoc.valueChanges();
     this.animationsService.playAnim(box, zoomIn)
   } 
@@ -68,7 +69,11 @@ export class LeitosListComponent implements OnInit {
   } 
 
   openBottomSheet(source: string): void {
-    this._bottomSheet.open(BottomSheetLeitosList, {data: {source: source, zone: this.selectedZone}});
+    this._bottomSheet.open(BottomSheetLeitosList, {data: {source: source, zone: this.selectedZone, bed: this._selectedBed}});
+  }
+
+  formatProblemsList(problemsList: string) {
+    return problemsList ? problemsList.replace(/\n/g, '<br>') : '';
   }
 
 }

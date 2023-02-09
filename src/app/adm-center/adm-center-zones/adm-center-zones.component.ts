@@ -4,6 +4,8 @@ import { map, Observable } from 'rxjs';
 import { MatDialog } from '@angular/material/dialog';
 import { AddZoneDialog } from './Dialogs/add-zone-dialog/add-zone-dialog.component'
 import { AppComponent } from '../../app.component';
+import { Bed } from 'src/app/interfaces';
+import {MatSnackBar} from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-adm-center-zones',
@@ -20,6 +22,7 @@ export class AdmCenterZonesComponent {
     private afs: AngularFirestore, 
     public dialog: MatDialog,
     private appComponent: AppComponent,
+    private _snackBar: MatSnackBar,
     ) {
     this.zones = this.afs.collection('/HTL/').valueChanges(); 
     
@@ -53,7 +56,41 @@ export class AdmCenterZonesComponent {
     });
   }
 
-  plus_bed(){
+  deleteZone(){
+    
+  }
+
+  plus_bed(n_beds: any){
+    const value = this._selectedZone
+    var id = (n_beds+1).toString()
+    var bed: Bed = {
+      id: id, 
+      bed_name: `Leito ${id}`,
+      client_name: '',
+      birthday: '',
+      start_emergency: '',
+      start_internment: '',
+      service_number: '',
+      plan_number: '',
+      problems_list: '',
+      conduct: '',
+      check_list: [],
+      doctor: '',
+      nurse: '',
+      state: '',
+    }
+    this.afs.doc<Bed>('/HTL/' + value + '/beds/'+(n_beds+1)).set(bed)
+  }
+
+  less_bed(n_beds: any){
+    const value = this._selectedZone
+    this.afs.doc<Bed>('/HTL/' + value + '/beds/' + n_beds).get().subscribe(bed => {
+      if (bed.data()?.client_name === '') {
+        this.afs.doc('/HTL/' + value + '/beds/' + n_beds).delete();
+      } else{
+        this._snackBar.open('O Leito está ocupado, primeiro dê alta do paciente', 'Ok');
+      }
+    });
     
   }
 

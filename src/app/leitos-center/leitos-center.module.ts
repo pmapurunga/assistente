@@ -18,6 +18,8 @@ import { BottomSheetLeitosList } from './leitos-list/leitos-list-botton-sheet/le
 import { AnimationsService } from '../Services/animations.service'
 
 import { OrderByPipe } from '../Pipes/orde-by.pipe'
+import { AgePipe } from '../Pipes/age.pipe'
+import { MAT_DATE_LOCALE, NativeDateAdapter } from '@angular/material/core';
 
 
 @NgModule({
@@ -45,9 +47,10 @@ import { OrderByPipe } from '../Pipes/orde-by.pipe'
     LeitosCenterHomeComponent,
     LeitosDetailComponent,
     OrderByPipe,
-    BottomSheetLeitosList
+    BottomSheetLeitosList,
+    AgePipe,
   ],
-  providers: [AnimationsService],
+  providers: [AnimationsService, { provide: MAT_DATE_LOCALE, useValue: 'en-GB' }],
 })
 export class LeitosCenterModule {}
 

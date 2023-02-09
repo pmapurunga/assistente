@@ -11,7 +11,7 @@
             </mat-card-content>
             <mat-card-actions>
               <button mat-button (click)="add_Dialog()">Criar Área</button>
-              <button mat-button>Apagar Área</button>
+              <button mat-button (click)="deleteZone()">Apagar Área</button>
             </mat-card-actions>
           </mat-card>
     </mat-grid-tile>
@@ -25,8 +25,12 @@
               <h2>{{ (beds | async)?.length }} Leitos</h2>
             </mat-card-content>
             <mat-card-actions>
-              <button mat-button>Menos</button>
-              <button mat-button (click)="plus_bed()">Mais</button>
+              <ng-container *ngIf="beds | async as bedsData">
+                <button mat-button (click)="less_bed(bedsData.length)">Menos</button>
+              </ng-container>
+              <ng-container *ngIf="beds | async as bedsData">
+                <button mat-button (click)="plus_bed(bedsData.length)">Mais</button>
+              </ng-container>
             </mat-card-actions>
           </mat-card>
     </mat-grid-tile>

@@ -14,9 +14,11 @@ export interface Bed {
     check_list: string[];
     doctor: string;
     nurse: string;
+    state: string;
 }
 
 export interface BottomSheetData {
     source: string;
     zone: string;
+    bed: string;
   }

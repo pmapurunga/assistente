@@ -1,10 +1,9 @@
-import {Component, Inject} from '@angular/core';
+import {Component, Inject } from '@angular/core';
 import { MatBottomSheetRef, MAT_BOTTOM_SHEET_DATA} from '@angular/material/bottom-sheet';
-import { AngularFirestore, AngularFirestoreCollection } from '@angular/fire/compat/firestore';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { AngularFirestore, AngularFirestoreCollection, AngularFirestoreDocument } from '@angular/fire/compat/firestore';
+import { FormBuilder, FormGroup, } from '@angular/forms';
 import { Bed, BottomSheetData } from '../../../interfaces'
 import { Observable } from 'rxjs';
-
 @Component({
     selector: 'leitos-list-bottom-sheet',
     templateUrl: 'leitos-list-botton-sheet.html',
@@ -14,58 +13,83 @@ import { Observable } from 'rxjs';
 
     private itemsCollection: AngularFirestoreCollection<Bed>;
     items: Observable<Bed[]>;
-    
+    sourceList = ['client_name', 'birthday', 'problems_list'];
+
     form: FormGroup = this.formBuilder.group({
-      id: ['', [Validators.required, Validators.minLength(3)]],
-      bed_name: ['', [Validators.required, Validators.minLength(3)]],
-      client_name: ['', [Validators.required, Validators.minLength(3)]],
-      birthday: ['', [Validators.required, Validators.minLength(3)]],
+      id: [''],
+      bed_name: [''],
+      client_name: [''],
+      birthday: [Date],
       start_emergency: [''],
       start_internment: [''],
-      service_number: ['', [Validators.required, Validators.minLength(3)]],
-      plan_number: ['', [Validators.required, Validators.minLength(3)]],
-      problems_list: ['', [Validators.required, Validators.minLength(3)]],
-      conduct: ['', [Validators.required, Validators.minLength(3)]],
-      check_list: ['', [Validators.required, Validators.minLength(3)]],
-      doctor: ['', [Validators.required, Validators.minLength(3)]],
-      nurse: ['', [Validators.required, Validators.minLength(3)]],
+      service_number: [''],
+      plan_number: [''],
+      problems_list: [''],
+      conduct: [''],
+      check_list: [''],
+      doctor: [''],
+      nurse: [''],
+      state: ['']
     });
 
     constructor(
       private _bottomSheetRef: MatBottomSheetRef<BottomSheetLeitosList>,
       @Inject(MAT_BOTTOM_SHEET_DATA) public data: BottomSheetData,
       private formBuilder: FormBuilder,
-      private readonly afs: AngularFirestore
+      private afs: AngularFirestore,
       ) {
         this.itemsCollection = afs.collection<Bed>('HTL/'+data.zone+'/beds/');
         this.items = this.itemsCollection.valueChanges({ idField: 'customID' });
+        
       }
 
       ngOnInit() {
         
       }
-  
-    openLink(event: MouseEvent): void {
-      this._bottomSheetRef.dismiss();
-      event.preventDefault();
-    }
 
-    submitForm() {
-
-      const bed: Bed = { 
-        ...this.form.value
-      };
-
-      this.itemsCollection.doc(bed.id).update({
-        client_name: bed.client_name,
-        birthday: bed.birthday, 
-        start_emergency: bed.start_emergency,
-        start_internment: bed.start_internment,
-        service_number: bed.service_number,
-        plan_number: bed.plan_number,
-      });
+      submitAdd() {
+        this.itemsCollection.doc(this.data.bed).update({
+          client_name: this.form.value.client_name,
+          birthday: this.form.value.birthday,
+          state: this.form.value.state,
+          plan_number: this.form.value.plan_number
+        });
+        this._bottomSheetRef.dismiss();
+      }
+      
       
 
+    submitName(){
+      
     }
 
+    submitBirthdate(){
+
+    }
+
+    submitProblems(){
+      this.itemsCollection.doc(this.data.bed).update({
+        problems_list: JSON.stringify(this.form.value.problems_list)
+      });
+      this._bottomSheetRef.dismiss();
+    }    
+    
+    alta(){
+      this.itemsCollection.doc(this.data.bed).update({
+        client_name: "",
+        birthday: "",
+        start_emergency: "",
+        start_internment:"",
+        service_number: "",
+        plan_number: "",
+        problems_list: "",
+        conduct: "",
+        check_list: [""],
+        doctor: "",
+        nurse: "",
+        state: "",
+      });
+      this._bottomSheetRef.dismiss();
+    }
+            
   }

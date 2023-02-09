@@ -17,7 +17,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { LeitosCenterModule } from './leitos-center/leitos-center.module'
 import { AdmCenterModule } from './adm-center/adm-center.module'
 import { environment } from '../environments/environment';
-
+import { DatePipe } from '@angular/common';
 /*
 import { initializeApp,provideFirebaseApp } from '@angular/fire/app';
 import { environment } from '../environments/environment';
@@ -36,7 +36,7 @@ import { provideStorage,getStorage } from '@angular/fire/storage';*/
         AppComponent,
         HomeComponent
     ],
-    providers: [],
+    providers: [DatePipe],
     exports: [
         FlexLayoutModule,
         MaterialModule
