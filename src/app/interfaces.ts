@@ -4,7 +4,7 @@ export interface Bed {
     id: string;
     bed_name: string;
     client_name: string;
-    birthdate_client: string;
+    birthday: string;
     start_emergency: string;
     start_internment:string;
     service_number: string;
@@ -15,3 +15,8 @@ export interface Bed {
     doctor: string;
     nurse: string;
 }
+
+export interface BottomSheetData {
+    source: string;
+    zone: string;
+  }

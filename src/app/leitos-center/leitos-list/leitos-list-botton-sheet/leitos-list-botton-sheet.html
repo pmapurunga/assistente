@@ -14,4 +14,35 @@
       <span matLine>Mudar Enfermeiro(a) responsável pelo paciente</span>
     </a>
 </mat-nav-list>
-  
+<div *ngIf="this.data.source === 'client'">
+  <form [formGroup]="form">
+    <mat-form-field appearance="outline">
+      <mat-label>Nome</mat-label>
+      <input matInput formControlName="client_name">
+      <mat-error *ngIf="form?.get('client_name')?.hasError('required')">Nome é obrigatório</mat-error>
+    </mat-form-field><br>
+    <mat-form-field appearance="outline">
+      <mat-label>Data de Nascimento</mat-label>
+      <input matInput formControlName="birthday">
+      <mat-error *ngIf="form?.get('birthday')?.hasError('required')">Data de Nascimento é obrigatória</mat-error>
+    </mat-form-field>
+    <mat-form-field appearance="outline">
+      <mat-label>Entrada na Emergência</mat-label>
+      <input matInput formControlName="start_emergency">
+    </mat-form-field>
+    <mat-form-field appearance="outline">
+      <mat-label>Entrada na Internamento</mat-label>
+      <input matInput formControlName="start_internment">
+    </mat-form-field>
+    <mat-form-field appearance="outline">
+      <mat-label>No de Internamento</mat-label>
+      <input matInput formControlName="service_number">
+      <mat-error *ngIf="form?.get('service_number')?.hasError('required')">No de Internamento é obrigatório</mat-error>
+    </mat-form-field>
+    <mat-form-field appearance="outline">
+      <mat-label>No de Plano</mat-label>
+      <input matInput formControlName="plan_number">
+      <mat-error *ngIf="form?.get('plan_number')?.hasError('required')">No de Plano é obrigatório</mat-error>
+    </mat-form-field>
+  </form>  
+</div>
