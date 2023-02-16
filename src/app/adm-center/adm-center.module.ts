@@ -11,7 +11,9 @@ import { AdmCenterRoutingModule } from './adm-center-routing.module'
 import { AdmCenterComponent } from './adm-center/adm-center.component'
 import { AdmCenterHomeComponent } from './adm-center-home/adm-center-home.component';
 import { AdmCenterZonesComponent } from './adm-center-zones/adm-center-zones.component';
-import { AddZoneDialog } from './adm-center-zones/Dialogs/add-zone-dialog/add-zone-dialog.component'
+import { AddZoneDialog } from './adm-center-zones/Dialogs/add-zone-dialog/add-zone-dialog.component';
+import { AdmUsersComponent } from './adm-center-users/adm-center-users.component'
+import { AdmBottomSheet } from './adm-center-users/adm-user-botton-sheet/adm-user-bottom-sheet.component'
 
 @NgModule({
   declarations: [
@@ -19,6 +21,8 @@ import { AddZoneDialog } from './adm-center-zones/Dialogs/add-zone-dialog/add-zo
     AdmCenterHomeComponent,
     AdmCenterZonesComponent,
     AddZoneDialog,
+    AdmUsersComponent,
+    AdmBottomSheet,
   ],
   imports: [
     CommonModule,

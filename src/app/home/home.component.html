@@ -1,1 +1,27 @@
-<p>Bem vindo ao Home!</p>
+<mat-toolbar color="primary">
+    <button mat-icon-button class="example-icon" (click)="sidenav.toggle()">
+        <mat-icon>menu</mat-icon>
+    </button>
+    <span>Assistente  Médico</span>
+    <span style="flex: 1 1 auto; text-align: center;">{{ title }}</span>
+</mat-toolbar>
+<mat-sidenav-container class="example-container">
+    <mat-sidenav #sidenav class="sidenav">
+        <mat-nav-list>
+          <a mat-list-item (click)="link_home()"> Home </a>
+          <mat-expansion-panel (opened)="panelOpenState = true"
+                       (closed)="panelOpenState = false">
+            <mat-expansion-panel-header>
+                <mat-panel-title>Leitos</mat-panel-title>
+            </mat-expansion-panel-header>
+            <mat-nav-list *ngFor="let zone of zones | async">
+                <a mat-list-item (click)="selectZone(zone.name)"> {{ zone.name }} </a>
+            </mat-nav-list>
+            </mat-expansion-panel>
+          <a mat-list-item (click)="link_adm()"> Administração </a>
+        </mat-nav-list>
+    </mat-sidenav>
+    <mat-sidenav-content>
+        <router-outlet></router-outlet>
+    </mat-sidenav-content>
+</mat-sidenav-container>

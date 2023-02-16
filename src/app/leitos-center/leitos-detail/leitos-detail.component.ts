@@ -3,7 +3,6 @@ import { Input, Output, EventEmitter } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AngularFirestore, AngularFirestoreDocument } from '@angular/fire/compat/firestore';
 import { Observable } from 'rxjs';
-import { Leito } from '../leito';
 
 @Component({
   selector: 'app-leitos-detail',

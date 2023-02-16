@@ -1,10 +1,10 @@
-mat-card{
-    width: 400px;
+.choise-card{
+    width: 300px;
     min-height: 300px;
 }
 
-.num_leitos{
-    text-align: center;
+.zone-card{
+    min-height: 300px;
 }
 
 /*

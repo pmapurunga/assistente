@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { AppComponent } from '../../app.component';
+import { HomeComponent } from '../../home/home.component';
 
 @Component({
   selector: 'app-adm-center-home',
@@ -8,11 +8,11 @@ import { AppComponent } from '../../app.component';
 })
 export class AdmCenterHomeComponent {
 
-  constructor(private appComponent: AppComponent) {}
+  constructor(private homeComponent: HomeComponent) {}
 
   ngOnInit() {
     setTimeout(() => {
-      this.appComponent.title = 'Administração';
+      this.homeComponent.title = 'Administração';
     }, 100);
   }
 

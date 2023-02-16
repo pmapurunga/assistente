@@ -1,0 +1,34 @@
+<h1>Adicionar Usuário</h1>
+<form [formGroup]="form" (submit)="submitUser()" style="min-width: 150px;max-width: 500px;width: 100%">
+    <mat-form-field appearance="outline">
+        <mat-label>Nome</mat-label>
+        <input matInput placeholder="Placeholder" formControlName="name">
+        <mat-icon matSuffix>sentiment_very_satisfied</mat-icon>
+        <mat-hint>Hint</mat-hint>
+    </mat-form-field><br>
+    <mat-form-field class="example-full-width">
+        <mat-label>Telephone</mat-label>
+        <span matPrefix>+55 &nbsp;</span>
+        <input type="tel" matInput placeholder="71-9.9999-9999" formControlName="phone">
+        <mat-icon matSuffix>phone</mat-icon>
+    </mat-form-field><br>
+    <mat-radio-group aria-label="Select an option" formControlName="class">
+        <mat-radio-button value="doctor">Médico(a)</mat-radio-button>
+        <mat-radio-button value="nurse">Enfermeiro(a)</mat-radio-button>
+    </mat-radio-group><br>
+    <mat-form-field appearance="outline" *ngIf="form.get('class')?.value === 'doctor'">
+        <mat-label>CRM</mat-label>
+        <input matInput placeholder="Placeholder" formControlName="crm">
+        <mat-icon matSuffix>sentiment_very_satisfied</mat-icon>
+        <mat-hint>Digite apenas os números</mat-hint>
+    </mat-form-field>
+    <br>
+    <mat-form-field appearance="outline" *ngIf="form.get('class')?.value === 'nurse'">
+        <mat-label>COREN</mat-label>
+        <input matInput placeholder="Placeholder" formControlName="coren">
+        <mat-icon matSuffix>sentiment_very_satisfied</mat-icon>
+        <mat-hint>Digite apenas os números</mat-hint>
+    </mat-form-field>
+    <br>
+    <button mat-button (click)="submitUser()">Salvar</button>  
+</form>

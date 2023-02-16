@@ -1,0 +1,28 @@
+<div fxFill fxLayout="column" fxLayoutAlign="center center" >
+  <mat-card class="auth-card">
+    <mat-card-header>
+      <mat-card-title>Entre</mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+      <div>
+        <form [formGroup]="form">
+          <mat-form-field class="example-full-width">
+            <mat-label>Email</mat-label>
+            <input type="email" matInput formControlName="email" placeholder="Ex. pat@example.com">
+          </mat-form-field>
+          <mat-form-field class="example-full-width">
+            <mat-label>Senha</mat-label>
+            <input type="password" matInput formControlName="password" placeholder="*******">
+          </mat-form-field>
+        </form>
+      </div>
+      <span>
+        Ainda não tem uma conta?
+        <button mat-button routerLink="/auth/register-user">Cadastrar</button></span>
+    </mat-card-content>
+    <mat-card-actions align="end">
+      <button mat-button routerLink="/auth/forgot-password">Esqueci Senha</button>
+      <button mat-button (click)="sign_in()">Entre</button>
+    </mat-card-actions>
+  </mat-card>
+</div>

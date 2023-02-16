@@ -4,7 +4,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { AdmCenterComponent } from './adm-center/adm-center.component'
 import { AdmCenterHomeComponent } from './adm-center-home/adm-center-home.component';
 import { AdmCenterZonesComponent } from './adm-center-zones/adm-center-zones.component';
-
+import { AdmUsersComponent } from './adm-center-users/adm-center-users.component'
 
 
 const AdmCenterRoutes: Routes = [
@@ -20,6 +20,10 @@ const AdmCenterRoutes: Routes = [
       {
         path: 'adm-zones',
         component: AdmCenterZonesComponent,
+      },
+      {
+        path: 'adm-users',
+        component: AdmUsersComponent,
       }
     ]
   }
@@ -34,10 +38,3 @@ const AdmCenterRoutes: Routes = [
   ]
 })
 export class AdmCenterRoutingModule { }
-
-
-/*
-Copyright Google LLC. All Rights Reserved.
-Use of this source code is governed by an MIT-style license that
-can be found in the LICENSE file at https://angular.io/license
-*/

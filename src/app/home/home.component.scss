@@ -1,0 +1,31 @@
+.example-container {
+    display: flex;
+    flex-direction: column;
+    z-index: 0;
+    height: 100%; /* 64px é a altura da Toolbar */
+    width: 100%;
+    padding-top: 54px;
+  }
+
+.example-container mat-sidenav-content {
+    overflow: auto;
+    flex: 1;
+  }
+  
+  mat-toolbar {
+    position: fixed;
+    height: 54px;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 1;
+  }
+
+  button{
+    margin: 8px;
+  }
+
+.sidenav {
+  padding: 20px;
+  padding-top: 54px;
+}

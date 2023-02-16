@@ -21,29 +21,50 @@
   <form [formGroup]="form">
     <div *ngIf="this.data.source === 'client_name'">
       <h2>Atualizar o Nome do Paciente</h2>
-      <mat-form-field appearance="outline" >
+      <mat-form-field appearance="outline" style="width: 100%;">
         <mat-label>Nome</mat-label>
-        <input matInput formControlName="client_name">
+        <input matInput formControlName="client_name" [value]="(item | async)?.client_name" #clientnameInput>
       </mat-form-field><br>
-      <button mat-button [disabled]="!this.form.value.client_name" (click)="submitName()">Salvar</button>  
+      <button mat-button (click)="submitName(clientnameInput.value)">Salvar</button>  
     </div>
     <div *ngIf="this.data.source === 'birthday'">
       <h2>Atualizar Data de Nascimento do Paciente</h2>
-      <mat-form-field appearance="outline" >
+      <mat-form-field appearance="outline">
         <mat-label>Data de Nascimento</mat-label>
-        <input matInput [matDatepicker]="birthdayPicker" formControlName="birthday">
+        <input matInput [matDatepicker]="birthdayPicker" formControlName="birthday" #birthdayInput>
         <mat-datepicker-toggle matSuffix [for]="birthdayPicker"></mat-datepicker-toggle>
         <mat-datepicker #birthdayPicker></mat-datepicker>
       </mat-form-field>
-      <button mat-button (click)="submitBirthdate()">Salvar</button>  
+      <button mat-button [disabled]="isBirthdayInvalid()" (click)="submitBirthday(birthdayInput.value)">Salvar</button>      
     </div>
     <div *ngIf="this.data.source === 'problems_list'">
       <h2>Lista de Problemas</h2>
       <mat-form-field style="height: 400px; width: 400px;">
-        <mat-label>Lista de Problemas</mat-label>
-        <textarea matInput style="height: 400px; width: 400px;" formControlName="problems_list"></textarea>
+        <textarea matInput style="height: 400px; width: 400px;" formControlName="problems_list" [value]="(item | async)?.problems_list | text:'textarea'"  #problemsListInput></textarea>
       </mat-form-field>
-      <button mat-button (click)="submitProblems()">Salvar</button>  
+      <button mat-button (click)="submitProblems(problemsListInput.value)">Salvar</button>  
+    </div>
+    <div *ngIf="this.data.source === 'conduct'">
+      <h2>Condutas</h2>
+      <mat-form-field style="height: 400px; width: 400px;">
+        <textarea matInput style="height: 400px; width: 400px;" formControlName="conduct" [value]="(item | async)?.conduct | text:'textarea'"  #conductInput></textarea>
+      </mat-form-field>
+      <button mat-button (click)="submitConduct(conductInput.value)">Salvar</button>  
+    </div>
+    <div *ngIf="this.data.source === 'notes'">
+      <h2>Anotações</h2>
+      <mat-form-field style="height: 400px; width: 400px;">
+        <textarea matInput style="height: 400px; width: 400px;" formControlName="notes" [value]="(item | async)?.notes | text:'textarea'"  #notesInput></textarea>
+      </mat-form-field>
+      <button mat-button (click)="submitNotes(notesInput.value)">Salvar</button>  
+    </div>
+    <div *ngIf="this.data.source === 'state'">
+      <h2>Onde o Paciente está Alocado?</h2>
+      <mat-radio-group formControlName="state" [value]="(item | async)?.state" #stateInput>
+        <mat-radio-button value="Emergência">Emergência</mat-radio-button>
+        <mat-radio-button value="Internamento">Internamento</mat-radio-button>
+      </mat-radio-group>
+      <button mat-button (click)="submitState()">Salvar</button>  
     </div>
   </form>
 </div>
@@ -67,8 +88,8 @@
       <input matInput formControlName="plan_number">
     </mat-form-field>
     <mat-radio-group formControlName="state">
-      <mat-radio-button value="na Emergência">na Emergência</mat-radio-button>
-      <mat-radio-button value="Internado">Internado</mat-radio-button>
+      <mat-radio-button value="Emergência">Emergência</mat-radio-button>
+      <mat-radio-button value="Internamento">Internamento</mat-radio-button>
     </mat-radio-group>
     </div>
   </form>

@@ -2,7 +2,7 @@ import { Component,  EventEmitter, Output } from '@angular/core';
 import { Observable } from 'rxjs';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
 import { Router } from '@angular/router';
-import { AppComponent } from '../../app.component';
+import { HomeComponent } from '../../home/home.component';
 
 @Component({
   selector: 'app-leitos-center-home',
@@ -15,21 +15,21 @@ export class LeitosCenterHomeComponent {
   constructor(
     private afs: AngularFirestore, 
     private router: Router,
-    private appComponent: AppComponent
+    private homeComponent: HomeComponent,
     ) {
     this.zones = this.afs.collection('/HTL/').valueChanges(); 
   }
   
   ngOnInit() {
     setTimeout(() => {
-      this.appComponent.title = 'Escolha a Área do Hospital';
+      this.homeComponent.title = 'Escolha a Área do Hospital';
     }, 100);
   }
 
   selectZone(zone: string) {
     this.router.navigate(['/leitos-list'], { queryParams: { selectedZone: zone } });
     setTimeout(() => {
-      this.appComponent.title = zone;
+      this.homeComponent.title = zone;
     }, 100);
   }
 

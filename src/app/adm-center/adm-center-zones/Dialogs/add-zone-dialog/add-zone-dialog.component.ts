@@ -39,17 +39,19 @@ import { Zone, Bed } from '../../../../interfaces'
             id: i.toString(), 
             bed_name: `Leito ${i}`,
             client_name: '',
-            birthday: '',
+            birthday: new Date(0),
             start_emergency: '',
             start_internment: '',
             service_number: '',
             plan_number: '',
             problems_list: '',
             conduct: '',
-            check_list: [],
+            check_list: Object.fromEntries(new Map<string, boolean>()),
             doctor: '',
             nurse: '',
-            state: ''
+            state: '',
+            notes: '',
+            goal: {evolved: false, prescribed: false, tested: false}
           }
           this.itemsCollection.doc(z_name).collection('beds').doc(i.toString()).set(bed);
         }

@@ -1,6 +1,6 @@
 <mat-toolbar  fxLayout="row" fxLayoutAlign="start center" >
     <div class="radio-filter" fxFlex="15" fxFill>
-        <mat-radio-group aria-label="Select an option">
+        <mat-radio-group aria-label="Select an option" value="2">
             <mat-radio-button value="1">Meus</mat-radio-button>
             <mat-radio-button value="2">Todos</mat-radio-button>
         </mat-radio-group>
@@ -29,17 +29,11 @@
 </mat-toolbar>
 
 <div #box>
-  <div class="colorNested" style="height: auto; width: 100%;" *ngIf="(item | async)?.client_name">
-    <div gdGap="10px" gdColumns="repeat(10, [col] auto)" gdRows="repeat(2, [row] auto)">
-      <div class="boxA" gdColumn="col 1/ span 1" gdRow="row / span 40" matRipple (click)="openBottomSheet('bed')">
+    <div #box_preenchido class="colorNested" *ngIf="(item | async)?.client_name" fxLayout="row" fxLayoutGap="10px">
+      <div #columnA class="boxA" matRipple (click)="openBottomSheet('bed')" fxFlex="10" fxLayoutGap="10px" fxFill>
           <div fxLayout="column" fxLayoutAlign="center center">
             <mat-icon aria-hidden="false">king_bed</mat-icon>
             <h2>{{ (item | async)?.bed_name }}</h2>
-          </div>
-          <mat-divider></mat-divider>
-          <div fxLayout="column" fxLayoutAlign="center center">
-            <h2>Estado:</h2>
-            <h3>{{ (item | async)?.state }}</h3>
           </div>
           <mat-divider></mat-divider>
           <div fxLayout="column" fxLayoutAlign="center center">
@@ -52,7 +46,8 @@
             <h3>{{ (item | async)?.nurse }}</h3>
           </div>
       </div>
-      <div class="boxB" gdColumn="col 2 / span 3" gdRow="row / span 20">
+      <div #columnB fxLayout="column" fxFlex="30" fxLayoutGap="10px" fxFill>
+      <div #rowB1 class="boxB" fxFlex fxFlex="50" fxLayoutGap="10px" fxFill>
         <mat-card class="card-paciente" fxFill>
           <mat-card-content>
             <div gdColumn="col 2 / span 2" gdRow="row 6" gdGap="5px" gdColumns="1fr 1fr">
@@ -80,54 +75,113 @@
           </mat-card-content>
         </mat-card>
       </div>
-      <div class="boxC" gdColumn="col 5/ span 3" gdRow="row / span 40">
-        <mat-card class="card-problemas" matRipple fxFill (click)="openBottomSheet('problems_list')">
+      <div #rowB2 class="boxE" fxFlex="50" fxLayoutGap="10px" fxFill>
+        <mat-card class="card-destino" fxFill>
           <mat-card-header>
-            <mat-card-title>Lista de Problemas</mat-card-title>
+            <mat-card-title>Panorama</mat-card-title>
           </mat-card-header>
           <mat-card-content>
-            {{ formatProblemsList((item | async)?.problems_list) }}
-          </mat-card-content>          
+            <div>
+              <span>Alocado: </span>
+              <button mat-flat-button color="accent" *ngIf="(item | async)?.state == 'Emergência'" (click)="openBottomSheet('state')">Emergência</button>
+              <button mat-flat-button color="primary" *ngIf="(item | async)?.state == 'Internamento'" (click)="openBottomSheet('state')">Internamento</button>
+            </div>
+            <div fxLayout="row">
+              <mat-checkbox #g_evolved color="primary" (change)="goal('evolved')" [checked]="!!(item | async)?.goal.evolved">Evoluído</mat-checkbox>
+              <mat-checkbox #g_prescribed color="primary" (change)="goal('prescribed')" [checked]="!!(item | async)?.goal.prescribed">Prescrito</mat-checkbox>
+              <mat-checkbox #g_tested color="primary" (change)="goal('tested')" [checked]="!!(item | async)?.goal.tested">Exames Solic.</mat-checkbox>
+            </div>            
+          </mat-card-content>
         </mat-card>
       </div>
-      <div class="boxD" gdColumn="col 8/ span 3" gdRow="row / span 20">
+      </div>
+      <div #columnC class="boxC" fxLayout="column" fxFlex="30" fxLayoutGap="10px" fxFill>
+        <div #rowC1 fxFlex="50" fxLayoutGap="10px" fxFill>
+          <mat-card class="card-problemas" fxFill >
+            <mat-card-header>
+              <mat-card-title>
+                <button mat-button (click)="openBottomSheet('problems_list')">
+                  <h1>Lista de Problemas</h1>
+                </button>
+              </mat-card-title>
+            </mat-card-header>
+            <mat-card-content>
+              <div>
+                <p [innerHTML]="(item | async)?.problems_list | text:'text'"></p>
+              </div>
+            </mat-card-content>          
+          </mat-card>
+        </div>
+        <div #rowC2 fxFlex="50" fxLayoutGap="10px" fxFill>
+          <mat-card fxFill >
+            <mat-card-header>
+              <mat-card-title>
+                <button mat-button (click)="openBottomSheet('notes')">
+                  <h1>Anotações</h1>
+                </button>
+              </mat-card-title>
+            </mat-card-header>
+            <mat-card-content>
+              <div>
+                <p [innerHTML]="(item | async)?.notes | text:'text'"></p>
+              </div>
+            </mat-card-content>          
+          </mat-card>
+        </div>
+      </div>
+      <div #columnD fxLayout="column" fxFlex="30" fxLayoutGap="10px" fxFill>
+      <div #rowD1 class="boxD" fxFlex="50" fxLayoutGap="10px" fxFill>
         <mat-card class="card-pendencias" fxFill>
           <mat-card-header>
             <mat-card-title>Pendências</mat-card-title>
           </mat-card-header>
           <mat-card-content>
-            <mat-selection-list #shoes>
-              <mat-list-option >
-                
-              </mat-list-option>
-            </mat-selection-list>
+            <mat-list role="list">
+              <mat-list-item *ngFor="let item of (item | async)?.check_list | keyvalue" fxFill>
+                <mat-checkbox fxFlex="90" color="accent" (change)="check(item)" [checked]="!!item.value">
+                  <span>{{ item.key }}</span>
+                </mat-checkbox>
+                <button fxFlex mat-icon-button color="warn" (click)="delete_check(item.key)">
+                  <mat-icon>delete</mat-icon>
+                </button>
+              </mat-list-item>              
+              <mat-list-item fxFill>
+                <form [formGroup]="form" (submit)="add_check()">
+                  <mat-form-field class="example-form-field" fxFlex="90">
+                    <input matInput formControlName="add_check">
+                    <mat-label>Acrescente aqui</mat-label>
+                  </mat-form-field>
+                  <button mat-icon-button (click)="add_check()" fxFlex>
+                    <mat-icon color="green">arrow_upward</mat-icon>
+                  </button>  
+                </form>
+              </mat-list-item>
+            </mat-list>
           </mat-card-content>
         </mat-card>
       </div>
-      <div class="boxE" gdColumn="col 2/ span 3" gdRow="row 20/ span 20">
-        <mat-card class="card-destino" matRipple fxFill>
+      
+      <div #rowD2 class="boxF" fxFlex="50" fxLayoutGap="10px" fxFill>
+        <mat-card class="card-condutas" fxFill>
           <mat-card-header>
-            <mat-card-title>Destino</mat-card-title>
+            <mat-card-title>
+              <button mat-button (click)="openBottomSheet('conduct')">
+                <h1>Condutas</h1>
+              </button>
+            </mat-card-title>
           </mat-card-header>
           <mat-card-content>
-            
-          </mat-card-content>
-        </mat-card>
-      </div>
-      <div class="boxF" gdColumn="col 8/ span 3" gdRow="row 20/ span 20" >
-        <mat-card class="card-condutas" matRipple fxFill>
-          <mat-card-header>
-            <mat-card-title>Condutas</mat-card-title>
-          </mat-card-header>
-          <mat-card-content>
-            
+            <div>
+              <p [innerHTML]="(item | async)?.conduct | text:'text'"></p>
+            </div>
           </mat-card-content>
         </mat-card>
       </div>
     </div>
-  </div>
-  <div>
-  <div fxLayout="column" fxLayoutAlign="center center" fxFill *ngIf="!(item | async)?.client_name">
+    </div>
+
+  
+  <div #box_vazio fxLayout="column" fxLayoutAlign="center center" fxFill *ngIf="(item | async)?.client_name == '' " fxLayoutGap="10px">
     <mat-card>
         <mat-card-header>
             <mat-card-title>O {{ (item | async)?.bed_name }} está vazio</mat-card-title>
@@ -135,6 +189,14 @@
         <mat-card-actions>
           <button mat-button (click)="openBottomSheet('add_client')">Adicionar Paciente</button>
         </mat-card-actions>
+    </mat-card>
+  </div>
+
+  <div #box_null fxLayout="column" fxLayoutAlign="center center" fxFill *ngIf="(item | async)?.client_name == null" fxLayoutGap="10px">
+    <mat-card>
+        <mat-card-header>
+            <mat-card-title>Escolha um Leito</mat-card-title>
+        </mat-card-header>
     </mat-card>
   </div>
 </div>

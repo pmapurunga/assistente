@@ -1,7 +1,6 @@
-<mat-toolbar color="accent">
-    <mat-nav-list>
-        <a mat-list-item [routerLink]="'/adm-center/'"> Home </a>
-        <a mat-list-item [routerLink]="'/adm-center/adm-zones'"> Áreas</a>
-    </mat-nav-list>
+<mat-toolbar>
+    <button mat-stroked-button color="primary" [routerLink]="'/home/adm-center/'">Home</button>
+    <button mat-stroked-button color="primary" [routerLink]="'/home/adm-center/adm-zones'">Áreas</button>
+    <button mat-stroked-button color="primary" [routerLink]="'/home/adm-center/adm-users'">Usuários</button>
 </mat-toolbar>
 <router-outlet></router-outlet>

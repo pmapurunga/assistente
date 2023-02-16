@@ -19,8 +19,14 @@ import { AnimationsService } from '../Services/animations.service'
 
 import { OrderByPipe } from '../Pipes/orde-by.pipe'
 import { AgePipe } from '../Pipes/age.pipe'
-import { MAT_DATE_LOCALE, NativeDateAdapter } from '@angular/material/core';
+import { LOCALE_ID } from '@angular/core';
+import { registerLocaleData } from '@angular/common';
+import localePt from '@angular/common/locales/pt';
+import { MatNativeDateModule, MAT_DATE_LOCALE } from '@angular/material/core';
 
+import { TextPipe } from '../Pipes/text.pipe'
+
+registerLocaleData(localePt);
 
 @NgModule({
   imports: [
@@ -32,6 +38,7 @@ import { MAT_DATE_LOCALE, NativeDateAdapter } from '@angular/material/core';
     NgScrollbarModule,
     ScrollingModule,
     ReactiveFormsModule,
+    MatNativeDateModule,
   ],
   exports:[
     LeitosCenterHomeComponent,
@@ -49,8 +56,13 @@ import { MAT_DATE_LOCALE, NativeDateAdapter } from '@angular/material/core';
     OrderByPipe,
     BottomSheetLeitosList,
     AgePipe,
+    TextPipe,
   ],
-  providers: [AnimationsService, { provide: MAT_DATE_LOCALE, useValue: 'en-GB' }],
+  providers: [
+    AnimationsService, 
+    { provide: LOCALE_ID, useValue: 'pt-BR' },
+    { provide: MAT_DATE_LOCALE, useValue: 'pt-BR' },
+  ],
 })
 export class LeitosCenterModule {}
 

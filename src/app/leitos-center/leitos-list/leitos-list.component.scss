@@ -71,22 +71,21 @@
     
     .card-destino {
       box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.5);
-      cursor: pointer;
+      
     }
     
     .card-problemas {
       box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.5);
-      cursor: pointer;
     }
     
     .card-condutas {
       box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.5);
-      cursor: pointer;
+      
     }
     
     .card-pendencias {
       box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.5);
-      cursor: pointer;
+      
     }
     
     .justify{
@@ -112,41 +111,18 @@
     }
 
     .colorNested{
-      margin-top: 10px
+      margin-top: 10px;
+      height: 600px; 
+      //width: 100%;
     }
 
     .boxA {
       background-color:cadetblue;
       cursor: pointer;
       box-shadow: 0px 8px 10px rgba(0, 0, 0, 0.5);
-      width: 130px;
     }
 
-    .boxB {
-      width: 400px;
+    .boxB{
+      height: 400px;
     }
-
-    .boxC {
-      cursor: pointer;
-      width: 400px;
-    }
-
-    .boxD {
-      cursor: pointer;
-      width: 400px;
-    }
-
-    .boxE{
-      cursor: pointer;
-      width: 400px;
-    }
-
-    .boxF{
-      cursor: pointer;
-      width: 400px;
-    }
-
-    .boxG{
-      cursor: pointer;
-      width: 400px;
-    }
+    
