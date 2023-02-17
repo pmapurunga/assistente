@@ -25,6 +25,7 @@ export class LeitosListComponent implements OnInit {
   bed!: Bed;
   items: Observable<any[]> | undefined;
   private _selectedBed: string | undefined;
+  zones: Observable<any[]>;
 
   private itemDoc!: AngularFirestoreDocument<Bed>;
   item!: Observable<any>;
@@ -51,7 +52,7 @@ export class LeitosListComponent implements OnInit {
       this.items = afs.collection('/HTL/'+this.selectedZone+'/beds').valueChanges();
       this.homeComponent.title = this.selectedZone
     });
-    
+    this.zones = this.afs.collection('/HTL/').valueChanges(); 
   }
 
   ngOnInit() {

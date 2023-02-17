@@ -30,7 +30,7 @@
 
 <div #box>
     <div #box_preenchido class="colorNested" *ngIf="(item | async)?.client_name" fxLayout="row" fxLayoutGap="10px">
-      <div #columnA class="boxA" matRipple (click)="openBottomSheet('bed')" fxFlex="10" fxLayoutGap="10px" fxFill>
+      <div #columnA class="boxA" matTooltip="Clique" matRipple (click)="openBottomSheet('bed')" fxFlex="10" fxLayoutGap="10px" fxFill>
           <div fxLayout="column" fxLayoutAlign="center center">
             <mat-icon aria-hidden="false">king_bed</mat-icon>
             <h2>{{ (item | async)?.bed_name }}</h2>
@@ -52,17 +52,17 @@
           <mat-card-content>
             <div gdColumn="col 2 / span 2" gdRow="row 6" gdGap="5px" gdColumns="1fr 1fr">
               <div gdColumn="1 / span 2" gdRow="1">
-                <button mat-button (click)="openBottomSheet('client_name')">Nome:</button>
+                <button mat-button matTooltip="Mudar" (click)="openBottomSheet('client_name')">Nome:</button>
 	              <span matListItemTitle>{{ (item | async)?.client_name }}</span>
                 <mat-divider></mat-divider>
               </div>
               <div gdColumn="1" gdRow="3">
-                <button mat-button (click)="openBottomSheet('birthday')">Data de Nascimento:</button>
+                <button mat-button matTooltip="Mudar" (click)="openBottomSheet('birthday')">Data de Nascimento:</button>
 	              <span matListItemLine>{{ (item | async)?.birthday.toDate().getTime() | date: 'dd/MM/yyyy' }}</span>
                 <mat-divider></mat-divider>
               </div>
               <div gdColumn="2" gdRow="3">
-                <button mat-button (click)="openBottomSheet('birthday')">Idade:</button>
+                <button mat-button matTooltip="Mudar" (click)="openBottomSheet('birthday')">Idade:</button>
 	              <span matListItemLine>{{ (item | async)?.birthday.toDate().getTime() | age: 'years' }}</span>
                 <mat-divider></mat-divider>
               </div>
@@ -83,14 +83,26 @@
           <mat-card-content>
             <div>
               <span>Alocado: </span>
-              <button mat-flat-button color="accent" *ngIf="(item | async)?.state == 'Emergência'" (click)="openBottomSheet('state')">Emergência</button>
-              <button mat-flat-button color="primary" *ngIf="(item | async)?.state == 'Internamento'" (click)="openBottomSheet('state')">Internamento</button>
+              <button mat-flat-button color="accent" *ngIf="(item | async)?.state == 'Emergência'" (click)="openBottomSheet('state')" matTooltip="Mudar">Emergência</button>
+              <button mat-flat-button color="primary" *ngIf="(item | async)?.state == 'Internamento'" (click)="openBottomSheet('state' )" matTooltip="Mudar">Internamento</button>
             </div>
             <div fxLayout="row">
               <mat-checkbox #g_evolved color="primary" (change)="goal('evolved')" [checked]="!!(item | async)?.goal.evolved">Evoluído</mat-checkbox>
               <mat-checkbox #g_prescribed color="primary" (change)="goal('prescribed')" [checked]="!!(item | async)?.goal.prescribed">Prescrito</mat-checkbox>
               <mat-checkbox #g_tested color="primary" (change)="goal('tested')" [checked]="!!(item | async)?.goal.tested">Exames Solic.</mat-checkbox>
-            </div>            
+            </div>
+            <div>
+              <span>Destinação: </span>
+              <mat-form-field appearance="fill">
+                <mat-select>
+                  <mat-option value="A Definir">A Definir</mat-option>
+                  <mat-option value="Aguardar 30h">Aguardar 30h</mat-option>
+                  <mat-option [value]="zone.name" *ngFor="let zone of zones | async">{{ zone.name }}</mat-option>
+                  <mat-option value="Regulação">Regulação</mat-option>
+                  <mat-option value="Alta feita">Alta feita</mat-option>
+                </mat-select>
+              </mat-form-field>
+            </div>         
           </mat-card-content>
         </mat-card>
       </div>
@@ -100,7 +112,7 @@
           <mat-card class="card-problemas" fxFill >
             <mat-card-header>
               <mat-card-title>
-                <button mat-button (click)="openBottomSheet('problems_list')">
+                <button mat-button matTooltip="Clique" (click)="openBottomSheet('problems_list')">
                   <h1>Lista de Problemas</h1>
                 </button>
               </mat-card-title>
@@ -116,7 +128,7 @@
           <mat-card fxFill >
             <mat-card-header>
               <mat-card-title>
-                <button mat-button (click)="openBottomSheet('notes')">
+                <button mat-button matTooltip="Clique" (click)="openBottomSheet('notes')">
                   <h1>Anotações</h1>
                 </button>
               </mat-card-title>
@@ -165,7 +177,7 @@
         <mat-card class="card-condutas" fxFill>
           <mat-card-header>
             <mat-card-title>
-              <button mat-button (click)="openBottomSheet('conduct')">
+              <button mat-button matTooltip="Clique" (click)="openBottomSheet('conduct')">
                 <h1>Condutas</h1>
               </button>
             </mat-card-title>

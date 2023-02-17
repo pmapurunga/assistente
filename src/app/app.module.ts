@@ -44,7 +44,7 @@ import { USE_DEVICE_LANGUAGE } from '@angular/fire/compat/auth';
 import { LANGUAGE_CODE } from '@angular/fire/compat/auth';
 import { PERSISTENCE } from '@angular/fire/compat/auth';
 import { TENANT_ID } from '@angular/fire/compat/auth';
-import { DashboardComponent } from './auth/dashboard/dashboard.component';
+import { DashboardComponent } from './dashboard/dashboard.component';
 import { SignInComponent } from './auth/sign-in/sign-in.component';
 import { SignUpComponent } from './auth/sign-up/sign-up.component';
 import { ForgotPasswordComponent } from './auth/forgot-password/forgot-password.component';

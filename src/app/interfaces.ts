@@ -33,6 +33,8 @@ export interface BottomSheetData {
     emailVerified: boolean;
     type_class: string;
     number_class: string;
-    state_class:string;
+    state_class: string;
     hospital: string;
+    phone: string;
+    type_user: string
  }

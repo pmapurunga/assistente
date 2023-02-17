@@ -1,11 +1,16 @@
-<div fxFill fxLayout="column" fxLayoutAlign="center center" >
-  <mat-card class="auth-card">
+<div fxFill fxLayout="column" fxLayoutAlign="center center" style="background-color:cadetblue">
+  <mat-spinner *ngIf="progress"></mat-spinner>
+  <mat-card class="auth-card" *ngIf="!progress">
     <mat-card-header>
       <mat-card-title>Cadastrar Usuário</mat-card-title>
     </mat-card-header>
     <mat-card-content>
       <div>
         <form [formGroup]="form">
+          <mat-form-field class="example-full-width">
+            <mat-label>Nome Completo</mat-label>
+            <input type="text" matInput formControlName="displayName" placeholder="João Carlos de Souza">
+          </mat-form-field>
           <mat-form-field class="example-full-width">
             <mat-label>Email</mat-label>
             <input type="email" matInput formControlName="email" placeholder="Ex. pat@example.com">
@@ -14,11 +19,38 @@
             <mat-label>Senha</mat-label>
             <input type="password" matInput formControlName="password" placeholder="*******">
           </mat-form-field>
+          <mat-form-field class="example-full-width">
+            <mat-label>Telefone</mat-label>
+            <input type="number" matInput formControlName="phone" placeholder="(71) 9.9999-9999">
+          </mat-form-field>
+          <mat-radio-group formControlName="type_class">
+            <span>Conselho:</span>
+            <mat-radio-button value="CRM">Medicina</mat-radio-button>
+            <mat-radio-button value="COREN">Enfermagem</mat-radio-button>
+          </mat-radio-group>
+          <mat-form-field appearance="fill" class="example-full-width">
+            <mat-label>Estado do Conselho</mat-label>
+            <mat-select formControlName="state_class">
+              <mat-option [value]="estado.sigla" *ngFor="let estado of estados">{{estado.sigla}}</mat-option>
+            </mat-select>
+          </mat-form-field>
+          <div *ngIf="form.value.state_class">
+            <div *ngIf="form.value.type_class == 'CRM'">
+              <mat-form-field class="example-full-width">
+                <mat-label>No do CRM</mat-label>
+                <input type="number" matInput formControlName="number_class" placeholder="3311">
+              </mat-form-field>
+            </div>           
+            <div *ngIf="form.value.type_class == 'COREN'">
+              <mat-form-field class="example-full-width">
+                <mat-label>No do COREN</mat-label>
+                <input type="number" matInput formControlName="number_class" placeholder="3311">
+              </mat-form-field>
+            </div>             
+          </div>          
         </form>
       </div>
-      <span>
-        Já tem uma conta?
-        <button mat-button routerLink="/auth/sign-in">Log In</button></span>
+      <span>Já tem uma conta?<button mat-button routerLink="/auth/sign-in">Log In</button></span>
     </mat-card-content>
     <mat-card-actions align="end">
       <button mat-button (click)="register()">Cadastrar</button>

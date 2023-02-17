@@ -3,6 +3,7 @@ import { AngularFirestore } from '@angular/fire/compat/firestore';
 import { MatSidenav } from '@angular/material/sidenav';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
+import { AuthService } from "../Services/auth.service";
 
 @Component({
   selector: "home",
@@ -20,6 +21,7 @@ export class HomeComponent implements OnInit {
   constructor(
     private afs: AngularFirestore, 
     private router: Router,
+    public authService: AuthService,
   ) {
     this.zones = this.afs.collection('/HTL/').valueChanges(); 
   }
@@ -48,6 +50,9 @@ export class HomeComponent implements OnInit {
     }, 100);
       
     this.sidenav.toggle()
+  }
+  logout(){
+    return this.authService.SignOut()
   }
 
 }

@@ -33,36 +33,62 @@ export class AuthService {
       }
     });
   }
+  //Get UserData
+  
+  
+
   // Sign in with email/password
   SignIn(email: string, password: string) {
     return this.afAuth
       .signInWithEmailAndPassword(email, password)
       .then((result) => {
-        this.SetUserData(result.user);
         this.afAuth.authState.subscribe((user) => {
           if (user) {
-            this.router.navigate(['/auth/dashboard']);
+            this.router.navigate(['/home/dashboard']);
           }
         });
       })
       .catch((error) => {
-        this._snackBar.open(error.message, 'Ok');
+        const errorCode = error.code;
+        let errorMessage = '';
+        if (errorCode === 'auth/user-not-found') {
+          errorMessage = 'Não encontramos nenhum usuário com esse e-mail';
+        } else if (errorCode === 'auth/wrong-password') {
+          errorMessage = 'Senha incorreta';
+        } else {
+          errorMessage = 'Ocorreu um erro ao tentar fazer login. Por favor, tente novamente mais tarde.';
+        }
+        this._snackBar.open(errorMessage, 'ok');
       });
   }
+  
   // Sign up with email/password
   SignUp(value:any) {
     return this.afAuth
       .createUserWithEmailAndPassword(value.email, value.password)
       .then((result) => {
-        /* Call the SendVerificaitonMail() function when new user sign 
-        up and returns promise */
         this.SendVerificationMail();
-        this.SetUserData(result.user);
+        this.SetData(result.user, value);
       })
       .catch((error) => {
-        this._snackBar.open(error.message, 'Ok');
+        let errorMessage: string;
+        switch (error.code) {
+          case 'auth/email-already-in-use':
+            errorMessage = 'O endereço de e-mail já está sendo usado por outra conta';
+            break;
+          case 'auth/invalid-email':
+            errorMessage = 'O endereço de e-mail é inválido';
+            break;
+          case 'auth/weak-password':
+            errorMessage = 'A senha é muito fraca';
+            break;
+          default:
+            errorMessage = 'Ocorreu um erro ao criar a conta';
+        }
+        this._snackBar.open(errorMessage, 'ok');
       });
   }
+  
   // Send email verfificaiton when new user sign up
   SendVerificationMail() {
     return this.afAuth.currentUser
@@ -76,52 +102,49 @@ export class AuthService {
     return this.afAuth
       .sendPasswordResetEmail(passwordResetEmail)
       .then(() => {
-        this._snackBar.open('Um e-mail para reiniciar sua senha foi enviado, verifique sua inbox.', 'Ok');
+        this._snackBar.open('Um e-mail para reiniciar sua senha foi enviado, verifique sua caixa de entrada.', 'Ok');
       })
       .catch((error) => {
-        this._snackBar.open(error, 'Ok');
+        let errorMessage: string;
+        switch (error.code) {
+          case 'auth/user-not-found':
+            errorMessage = 'O endereço de e-mail informado não corresponde a nenhuma conta.';
+            break;
+          case 'auth/invalid-email':
+            errorMessage = 'O endereço de e-mail é inválido';
+            break;
+          default:
+            errorMessage = 'Ocorreu um erro ao enviar o e-mail de reinicialização de senha.';
+        }
+        this._snackBar.open(errorMessage, 'ok');
       });
   }
+  
   // Returns true when user is looged in and email is verified
   get isLoggedIn(): boolean {
     const user = JSON.parse(localStorage.getItem('user')!);
     return user !== null && user.emailVerified !== false ? true : false;
   }
-  // Sign in with Google
-  GoogleAuth() {
-    return this.AuthLogin(new auth.GoogleAuthProvider()).then((res: any) => {
-      this.router.navigate(['/auth/dashboard']);
-    });
-  }
-  // Auth logic to run auth providers
-  AuthLogin(provider: any) {
-    return this.afAuth
-      .signInWithPopup(provider)
-      .then((result) => {
-        this.router.navigate(['/auth/dashboard']);
-        this.SetUserData(result.user);
-      })
-      .catch((error) => {
-        this._snackBar.open(error, 'Ok');
-      });
-  }
-  /* Setting up user data when sign in with username/password, 
-  sign up with username/password and sign in with social auth  
-  provider in Firestore database using AngularFirestore + AngularFirestoreDocument service */
-  SetUserData(user: any) {
+
+
+  SetData(user: any, value:any){
     const userRef: AngularFirestoreDocument<any> = this.afs.doc(`users/${user.uid}`);
     const userData: User = {
       uid: user.uid,
       email: user.email,
-      displayName: user.displayName,
+      displayName: value.displayName,
       emailVerified: user.emailVerified,
-      type_class: '',
-      number_class: '',
-      state_class: '',
-      hospital: '',
+      type_class: value.type_class,
+      number_class: value.number_class,
+      state_class: value.state_class,
+      hospital: 'HTL',
+      phone: value.phone,
+      type_user: 'general'
     };
-    return userRef.set(userData, {merge: true,});
+    return userRef.set(userData);
   }
+
+
   // Sign out
   SignOut() {
     return this.afAuth.signOut().then(() => {
