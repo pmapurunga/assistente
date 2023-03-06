@@ -1,5 +1,6 @@
-<div fxFill fxLayout="column" fxLayoutAlign="center center" style="background-color:cadetblue">
-  <mat-spinner *ngIf="progress"></mat-spinner>
+<div fxFill fxLayout="column" fxLayoutAlign="center center" style="background-color:cadetblue" *ngIf="!progress">
+  <button mat-fab extended class="fab-button" routerLink="/auth/sign-in">
+    <mat-icon>arrow_back</mat-icon>Já tem uma conta?</button>
   <mat-card class="auth-card" *ngIf="!progress">
     <mat-card-header>
       <mat-card-title>Cadastrar Usuário</mat-card-title>
@@ -50,10 +51,10 @@
           </div>          
         </form>
       </div>
-      <span>Já tem uma conta?<button mat-button routerLink="/auth/sign-in">Log In</button></span>
     </mat-card-content>
     <mat-card-actions align="end">
       <button mat-button (click)="register()">Cadastrar</button>
     </mat-card-actions>
   </mat-card>
 </div>
+<mat-spinner *ngIf="progress"></mat-spinner>

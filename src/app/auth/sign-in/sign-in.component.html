@@ -18,11 +18,11 @@
       </div>
       <span>
         Ainda não tem uma conta?
-        <button mat-button routerLink="/auth/register-user">Cadastrar</button></span>
+        <button mat-button routerLink="/auth/register-user" color="warn">Cadastrar</button></span>
     </mat-card-content>
     <mat-card-actions align="end">
-      <button mat-button routerLink="/auth/forgot-password">Esqueci Senha</button>
-      <button mat-button (click)="sign_in()">Entre</button>
+      <button mat-button routerLink="/auth/forgot-password" color="accent">Esqueci Senha</button>
+      <button mat-button (click)="sign_in()" color="primary">Entre</button>
     </mat-card-actions>
   </mat-card>
 </div>

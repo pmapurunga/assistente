@@ -17,6 +17,8 @@ export interface Bed {
     state: string;
     notes: string;
     goal: {[key: string]: boolean };
+    destination: string;
+    specialty:string;
 }
 
 

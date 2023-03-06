@@ -4,6 +4,9 @@
       "hosting": {
         "assistente": [
           "assistente-medico-6d342"
+        ],
+        "assistente-medico": [
+          "dist/assistente"
         ]
       }
     }

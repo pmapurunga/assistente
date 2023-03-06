@@ -34,6 +34,8 @@ export class LeitosListComponent implements OnInit {
   scrollable!: NgScrollbar;
   selectedZone: string  | undefined;
 
+  selectedValue = ''
+
   form: FormGroup = this.formBuilder.group({
     add_check:['']
   })
@@ -120,5 +122,15 @@ export class LeitosListComponent implements OnInit {
     } else if (bed?.data()?.goal?.[key] === false) {
       this.itemDoc.update({[`goal.${key}`]: true});
     }
+  }
+
+  destination(value: string){
+    this.itemDoc.update({destination: value})
+  }
+
+  destination_selected() {
+    this.itemDoc.get().subscribe(val=>{
+      //this.selectedValue = val.data()?.destination
+    })
   }
 }

@@ -13,7 +13,7 @@
           <ng-container *ngIf="items | async as bedList">
             <mat-nav-list *ngFor="let item of bedList | orderBy: 'bed_name'" >
               <div class="example-button-row">
-                <button mat-fab extended [ngStyle]="{'background-color': item.client_name ? 'green' : 'accent'}"  (click)="selectBed(item.id, box)">
+                <button mat-fab extended [color]="item.client_name ? 'primary' : 'accent'"  (click)="selectBed(item.id, box)">
                   <mat-icon>bed</mat-icon>
                   {{ item.id }}
                 </button>
@@ -28,7 +28,7 @@
     </button>
 </mat-toolbar>
 
-<div #box>
+<div #box fxFill>
     <div #box_preenchido class="colorNested" *ngIf="(item | async)?.client_name" fxLayout="row" fxLayoutGap="10px">
       <div #columnA class="boxA" matTooltip="Clique" matRipple (click)="openBottomSheet('bed')" fxFlex="10" fxLayoutGap="10px" fxFill>
           <div fxLayout="column" fxLayoutAlign="center center">
@@ -48,26 +48,26 @@
       </div>
       <div #columnB fxLayout="column" fxFlex="30" fxLayoutGap="10px" fxFill>
       <div #rowB1 class="boxB" fxFlex fxFlex="50" fxLayoutGap="10px" fxFill>
-        <mat-card class="card-paciente" fxFill>
+        <mat-card class="card-paciente" fxFill color="accent">
           <mat-card-content>
             <div gdColumn="col 2 / span 2" gdRow="row 6" gdGap="5px" gdColumns="1fr 1fr">
               <div gdColumn="1 / span 2" gdRow="1">
-                <button mat-button matTooltip="Mudar" (click)="openBottomSheet('client_name')">Nome:</button>
+                <button mat-button color="primary" matTooltip="Mudar" (click)="openBottomSheet('client_name')">Nome:</button>
 	              <span matListItemTitle>{{ (item | async)?.client_name }}</span>
                 <mat-divider></mat-divider>
               </div>
               <div gdColumn="1" gdRow="3">
-                <button mat-button matTooltip="Mudar" (click)="openBottomSheet('birthday')">Data de Nascimento:</button>
+                <button mat-button color="primary" matTooltip="Mudar" (click)="openBottomSheet('birthday')">Data de Nascimento:</button>
 	              <span matListItemLine>{{ (item | async)?.birthday.toDate().getTime() | date: 'dd/MM/yyyy' }}</span>
                 <mat-divider></mat-divider>
               </div>
               <div gdColumn="2" gdRow="3">
-                <button mat-button matTooltip="Mudar" (click)="openBottomSheet('birthday')">Idade:</button>
+                <button mat-button color="primary" matTooltip="Mudar" (click)="openBottomSheet('birthday')">Idade:</button>
 	              <span matListItemLine>{{ (item | async)?.birthday.toDate().getTime() | age: 'years' }}</span>
                 <mat-divider></mat-divider>
               </div>
               <div gdColumn="1" gdRow="4">
-                <button mat-button>No do Plano:</button>
+                <button mat-button color="primary">No do Plano:</button>
 	              <span matListItemLine>{{ (item | async)?.plan_number }}</span>
                 <mat-divider></mat-divider>
               </div>
@@ -81,8 +81,8 @@
             <mat-card-title>Panorama</mat-card-title>
           </mat-card-header>
           <mat-card-content>
-            <div>
-              <span>Alocado: </span>
+            <div style="padding-top: 5px;">
+              <span style="font-size: 16px; padding-right: 10px;">Alocado: </span>
               <button mat-flat-button color="accent" *ngIf="(item | async)?.state == 'Emergência'" (click)="openBottomSheet('state')" matTooltip="Mudar">Emergência</button>
               <button mat-flat-button color="primary" *ngIf="(item | async)?.state == 'Internamento'" (click)="openBottomSheet('state' )" matTooltip="Mudar">Internamento</button>
             </div>
@@ -92,16 +92,16 @@
               <mat-checkbox #g_tested color="primary" (change)="goal('tested')" [checked]="!!(item | async)?.goal.tested">Exames Solic.</mat-checkbox>
             </div>
             <div>
-              <span>Destinação: </span>
-              <mat-form-field appearance="fill">
-                <mat-select>
+              <span style="font-size: 16px">Destinação:</span>
+              <mat-form-field style="padding-left: 10px; height: 60px;">
+                <mat-select [(ngModel)]="selectedValue" (selectionChange)="destination($event.value)">
                   <mat-option value="A Definir">A Definir</mat-option>
                   <mat-option value="Aguardar 30h">Resolver em 30h</mat-option>
-                  <mat-option [value]="zone.name" *ngFor="let zone of zones | async">{{ zone.name }}</mat-option>
                   <mat-option value="Regulação">Regulação</mat-option>
-                  <mat-option value="Alta feita">Ir para casa</mat-option>
+                  <mat-option value="Ir para casa">Ir para casa</mat-option>
+                  <mat-option [value]="zone.name" *ngFor="let zone of zones | async">{{ zone.name }}</mat-option>
                 </mat-select>
-              </mat-form-field>
+              </mat-form-field>              
             </div>         
           </mat-card-content>
         </mat-card>
@@ -204,7 +204,7 @@
     </mat-card>
   </div>
 
-  <div #box_null fxLayout="column" fxLayoutAlign="center center" fxFill *ngIf="(item | async)?.client_name == null" fxLayoutGap="10px">
+  <div #box_null fxLayout="column" fxLayoutAlign="center center" fxFill *ngIf="(item | async)?.client_name == null">
     <mat-card>
         <mat-card-header>
             <mat-card-title>Escolha um Leito</mat-card-title>

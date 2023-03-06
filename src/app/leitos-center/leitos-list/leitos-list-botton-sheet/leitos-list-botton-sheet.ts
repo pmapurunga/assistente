@@ -69,9 +69,10 @@ import * as moment from 'moment';
       }
 
       submitAdd() {
+        const birthdayDate = moment(this.form.value.birthday).toDate();
         this.itemsCollection.doc(this.data.bed).update({
           client_name: this.form.value.client_name,
-          birthday: this.form.value.birthday,
+          birthday: birthdayDate,
           state: this.form.value.state,
           plan_number: this.form.value.plan_number
         });
@@ -94,7 +95,8 @@ import * as moment from 'moment';
     }
 
     submitBirthday(value: any) {
-      const birthdayDate = moment(this.form.value.birthday).toDate(); 
+      const birthdayDate = moment(this.form.value.birthday).toDate();
+      console.log('birthdayDate:', birthdayDate)
       this.itemsCollection.doc(this.data.bed).update({
         birthday: birthdayDate 
       });

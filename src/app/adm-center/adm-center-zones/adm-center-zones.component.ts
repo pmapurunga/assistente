@@ -97,7 +97,9 @@ export class AdmCenterZonesComponent {
       nurse: '',
       state: '',
       notes: '',
-      goal: {evolved: false, prescribed: false, tested: false}
+      goal: {evolved: false, prescribed: false, tested: false},
+      destination: '',
+      specialty:'',
     }
     this.afs.doc<Bed>('/HTL/' + value + '/beds/'+(n_beds+1)).set(bed)
   }

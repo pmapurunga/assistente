@@ -57,15 +57,8 @@
   .king_bed{
     align-items:center;
   }
-  
-  .leito {
-      background-color:cadetblue;
-      cursor: pointer;
-      box-shadow: 0px 8px 10px rgba(0, 0, 0, 0.5);
-    }
     
     .card-paciente {
-      
       box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.5);
     }
     
@@ -117,12 +110,9 @@
     }
 
     .boxA {
-      background-color:cadetblue;
+      background-color: cornflowerblue;
+      //background-color: rgb(237, 237, 100);
       cursor: pointer;
       box-shadow: 0px 8px 10px rgba(0, 0, 0, 0.5);
-    }
-
-    .boxB{
-      height: 400px;
     }
     

@@ -51,7 +51,9 @@ import { Zone, Bed } from '../../../../interfaces'
             nurse: '',
             state: '',
             notes: '',
-            goal: {evolved: false, prescribed: false, tested: false}
+            goal: {evolved: false, prescribed: false, tested: false},
+            destination: '',
+            specialty:'',
           }
           this.itemsCollection.doc(z_name).collection('beds').doc(i.toString()).set(bed);
         }
